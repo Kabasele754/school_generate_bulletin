@@ -1,0 +1,1 @@
+# school_generate_bulletin
