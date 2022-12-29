@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, DetailView, View, CreateView
 # Create your views here.
 
 class DashbordardView(TemplateView):
-    template_name = "school_staf/dashboard.html"
+    template_name = "school_staf/login.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
