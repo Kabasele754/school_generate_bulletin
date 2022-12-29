@@ -32,12 +32,8 @@
   <link rel="stylesheet" href="{% static 'school_admin/plugins/summernote/summernote-bs4.min.css'%}">
 <!-- daterange picker -->
   <link rel="stylesheet" href="{% static 'school_admin/plugins/daterangepicker/daterangepicker.css'%}">
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="{% static 'school_admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css'%}">
   <!-- Bootstrap Color Picker -->
   <link rel="stylesheet" href="{% static 'school_admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'%}">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{% static 'school_admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'%}">
   <!-- Select2 -->
   <link rel="stylesheet" href="{% static 'school_admin/plugins/select2/css/select2.min.css'%}">
   <link rel="stylesheet" href="{% static 'school_admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'%}">
@@ -47,10 +43,8 @@
   <link rel="stylesheet" href="{% static 'school_admin/plugins/bs-stepper/css/bs-stepper.min.css'%}">
   <!-- dropzonejs -->
   <link rel="stylesheet" href="{% static 'school_admin/plugins/dropzone/min/dropzone.min.css'%}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{% static 'school_admin/dist/css/adminlte.min.css'%}">
 
-</head>
+ </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -107,8 +101,7 @@
 <script src="{% static 'school_admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js'%}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'school_admin/dist/js/adminlte.js'%}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{% static 'school_admin/dist/js/demo.js'%}"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'school_admin/dist/js/pages/dashboard.js'%}"></script>
 
@@ -125,10 +118,8 @@
 <script src="{% static 'school_admin/plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
 <script src="{% static 'school_admin/plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
 <script src="{% static 'school_admin/plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
-<!-- AdminLTE App -->
-<script src="{% static 'school_admin/dist/js/adminlte.min.js'%}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{% static 'school_admin/dist/js/demo.js'%}"></script>
+
+
 <!-- Page specific script -->
 
 <!-- SweetAlert2 -->
@@ -172,8 +163,6 @@
 <script src="{% static 'school_admin/plugins/bs-stepper/js/bs-stepper.min.js'%}"></script>
 <!-- dropzonejs -->
 <script src="{% static 'school_admin/plugins/dropzone/min/dropzone.min.js'%}"></script>
-<!-- AdminLTE App -->
-<script src="{% static 'school_admin/dist/js/adminlte.min.js'%}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'school_admin/dist/js/demo.js'%}"></script>
 
@@ -312,10 +301,8 @@
 <script src="{% static 'school_admin/plugins/sweetalert2/sweetalert2.min.js'%}"></script>
 <!-- Toastr -->
 <script src="{% static 'school_admin/plugins/toastr/toastr.min.js'%}"></script>
-<!-- AdminLTE App -->
-<script src="{% static 'school_admin/dist/js/adminlte.min.js'%}"></script>
+
 <!-- AdminLTE for demo purposes -->
-<script src="{% static 'school_admin/dist/js/demo.js'%}"></script>
 <!-- Page specific script -->
 <script>
   $(function() {
@@ -470,6 +457,40 @@
       })
     });
   });
+</script>
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    //Enable check and uncheck all functionality
+    $('.checkbox-toggle').click(function () {
+      var clicks = $(this).data('clicks')
+      if (clicks) {
+        //Uncheck all checkboxes
+        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
+        $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
+      } else {
+        //Check all checkboxes
+        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
+        $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+      }
+      $(this).data('clicks', !clicks)
+    })
+
+    //Handle starring for font awesome
+    $('.mailbox-star').click(function (e) {
+      e.preventDefault()
+      //detect type
+      var $this = $(this).find('a > i')
+      var fa    = $this.hasClass('fa')
+
+      //Switch states
+      if (fa) {
+        $this.toggleClass('fa-star')
+        $this.toggleClass('fa-star-o')
+      }
+    })
+  })
 </script>
 
 </body>
