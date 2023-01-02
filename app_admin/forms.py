@@ -88,8 +88,18 @@ class CourseForm(FormSettings):
         super(CourseForm, self).__init__(*args, **kwargs)
 
     class Meta:
-        fields = ['name','school_class']
         model = Course
+        fields = ['name','school_class']
+
+
+class SchoolClassForm(FormSettings):
+    def __init__(self, *args, **kwargs):
+        super(SchoolClassForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = SchoolClass
+        fields = ['class_name','class_num']
+
 
 
 class SchoolYearForm(FormSettings):
@@ -103,7 +113,6 @@ class SchoolYearForm(FormSettings):
             'start_year': DateInput(attrs={'type': 'date'}),
             'end_year': DateInput(attrs={'type': 'date'}),
         }
-
 
 
 class StudentEditForm(CustomUserForm):

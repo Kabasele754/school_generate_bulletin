@@ -36,7 +36,7 @@
               <div class="card-header">
                 <h3 class="card-title">Liste des éléves</h3>
                 <div class="clearfix">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Classe</button>
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Enseignant</button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -44,27 +44,32 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Nom Classe</th>
-                    <th>Numero Classe</th>
-
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                    <th>CSS grade</th>
                   </tr>
                   </thead>
                   <tbody>
-                  {% for school_class in school_class %}
                   <tr>
-                    <td>{{ school_class.class_name}}</td>
-                    <td>{{ school_class.class_num}}
+                    <td>Trident</td>
+                    <td>Internet
+                      Explorer 4.0
                     </td>
-
+                    <td>Win 95+</td>
+                    <td> 4</td>
+                    <td>X</td>
                   </tr>
-                  {% endfor %}
 
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Nom Classe</th>
-                    <th>Numero Classe</th>
-
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                    <th>CSS grade</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -103,6 +108,8 @@
                       {% csrf_token %}
                          {{  form.as_p }}
                          <input type="submit" value="Enregistrer">
+                       <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Enseignant</button>
+
                     </form>
 
 
@@ -130,5 +137,34 @@
     </section>
     <!-- /.content -->
   </div>
+
+
+<div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel3">Add campany</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="POST">
+              {% csrf_token %}
+
+
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Name Campany</label>
+              <input type="text" class="form-control " placeholder="" name="campany_name">
+
+            </div>
+            <button class="btn btn-primary" type="submit" >Save</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
