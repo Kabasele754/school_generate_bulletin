@@ -1,4 +1,5 @@
 {% extends 'school_admin/base.html' %}
+{% load static %}
 <!--side bar left-->
 {% block sidebar %}
 {% include 'school_admin/sidebar.html' %}
@@ -30,7 +31,6 @@
     <section class="content">
       <div class="container-fluid">
         <!-- /.row -->
-
         <!-- /.row -->
         <div class="row">
           <div class="col-12">
@@ -39,20 +39,20 @@
                 <div class="row">
                   <div class="col-3">
                 <div class="clearfix">
-                <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modal-lg">Image 1</button>
+                <img  class="float-left" src="{% static 'school_admin/dist/img/flag.png' %}" width="180px" height="150px">
               </div>
                     </div>
                    <div class="col-6">
                 <div class="clearfix">
-                <h6 class=" " style="text-align:center;">REPUBLIQUE DENOCRATIQUE DU CONGO </h6><P></P>
-                  <h6 class=" " style="text-align:center;">MINISTRE DE L'ENSEIGNEMENT PRIMAIRE SECONDAIRE ET </h6><P></P>
-                                    <h6 class=" " style="text-align:center;">INITIATION A LA NOUVELLE CITOYENNETE</h6>
+                <h3 class=" " style="text-align:center;">REPUBLIQUE DENOCRATIQUE DU CONGO </h3><P></P>
+                  <h3 class=" " style="text-align:center;">MINISTRE DE L'ENSEIGNEMENT PRIMAIRE SECONDAIRE ET </h3><P></P>
+                                    <h3 class=" " style="text-align:center;">INITIATION A LA NOUVELLE CITOYENNETE</h3>
 
                 </div>
                    </div>
                       <div class="col-3">
                   <div class="clearfix">
-                <button type="button" class="btn btn-primary float-right" style="margin:top;" data-toggle="modal" data-target="#modal-lg">Image 2</button>
+               <img  class="float-right" src="{% static 'school_admin/dist/img/tete.jpg' %}" width="180px" height="150px">
               </div>
                       </div>
                   </div>

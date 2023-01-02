@@ -37,7 +37,7 @@
                 <h3 class="card-title">Liste des éléves</h3>
                 <div class="clearfix">
 
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Enseignant</button>
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-xl"><i class="fas fa-plus"></i> Affecter cours enseignant</button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -85,45 +85,64 @@
       </div>
       <!-- /.container-fluid -->
 
-      <div class="modal fade" id="modal-lg">
-        <div class="modal-dialog modal-lg">
+     <div class="modal fade" id="modal-xl">
+        <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Formulaire d'enregistrement</h4>
+              <h4 class="modal-title">Enseignant</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <!-- /.row -->
 
-            <div class="card card-default">
-<!--              <div class="card-header">-->
-<!--                <h3 class="card-title">Formulaire d'enregistrement</h3>-->
-<!--              </div>-->
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Affectation cours</h3>
 
-              <div class="card-body p-3">
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Liste des cours et des enseignants</label>
+                  <select class="duallistbox" multiple="multiple">
+                    <h5 >Cours</h5>
+                    {% for cours in cours %}
 
-                    <!-- your steps content here -->
-                     <form method="post">
-                      {% csrf_token %}
-                         {{  form.as_p }}
-                         <input type="submit" value="Enregistrer">
+                    <option>{{cours.name}}</option>
+                    {% endfor %}
+                      <h5 > Enseignants</h5>
+                     {% for staff in staff %}
+                    <option>{{staff.admin.email}}</option>
+                    {% endfor %}
 
-                    </form>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+              </div>
 
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
 
-
-              <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
 
             </div>
-
-            <!-- /.card -->
-
-            </div>
-
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -131,9 +150,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-
-      <!-- /.modal -->
-      </div>
     </section>
     <!-- /.content -->
   </div>
