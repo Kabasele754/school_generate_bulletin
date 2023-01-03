@@ -1,0 +1,94 @@
+{% extends 'school_admin/base.html' %}
+<!--side bar left-->
+{% block sidebar %}
+{% include 'school_admin/sidebar.html' %}
+
+{% endblock sidebar %}
+
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" xmlns="http://www.w3.org/1999/html">
+  <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{student.admin.first_name}} {{student.admin.last_name}}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Edit</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Edit Eléve</h3>
+                <div class="clearfix">
+<!--                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Enseignant</button>-->
+              </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+
+<form role="form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="row">
+        {% for field in form  %}
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            {{field.errors}}
+               <br>
+                {% if not labels_uppercase %}{{ field.label|safe }}{% else %}{{ field.label|safe|upper }}{% endif %}{% if field.field.required %}{% endif %}
+<!--                {{field.label_tag}}-->
+              <p></p>
+                {{field}}
+
+                </div>
+
+        {% endfor %}
+        </div>
+
+
+    <!-- /.card-body -->
+<br><br>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary btn-block">
+            {% if button_text %}
+            {{button_text}}
+            {% else %}
+            Edit {{student.admin.first_name}} {{student.admin.last_name}}
+            {% endif %}
+
+        </button>
+    </div>
+</form>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+
+
+{% endblock content %}
