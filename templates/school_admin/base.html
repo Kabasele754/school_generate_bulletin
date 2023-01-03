@@ -493,5 +493,24 @@
   })
 </script>
 
+ </script>
+ {% for message in messages  %}
+{% if message.tags == 'success' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+ <script>
+     var m = "{{ message }}";
+     swal("Perfet !", m,"success")
+ </script>
+
+  {% else %}
+     <script>
+         var m = "{{ message }}";
+         swal("Erreur !", m,"error")
+     </script>
+    {% endif %}
+{% endfor %}
+
+
 </body>
 </html>

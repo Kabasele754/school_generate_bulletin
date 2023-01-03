@@ -44,26 +44,23 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Nom</th>
-                    <th>Post nom</th>
-                    <th>Email</th>
-                    <th>Genre</th>
-                    <th>Cours</th>
+                    <th>Nom Categorie</th>
+                    <th>Date créer</th>
+                    <th>Date mise à jour</th>
+
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  {% for staff in staff%}
+                  {% for category in categories%}
                   <tr>
-                    <td>{{ staff.admin.first_name }}</td>
-                    <td>{{ staff.admin.last_name }}
-                    </td>
-                    <td>{{ staff.admin.email }}</td>
-                    <td> {{ staff.admin.gender }}</td>
-                    <td>{{ staff.course }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.created }}</td>
+                    <td>{{ category.updated }}</td>
+
                     <td>
                       <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-eye"></i> Detail</a>
-                      <a href="{% url 'edit_staff' staff.id %}" class="btn btn-primary"  ><i class="fas fa-edit"></i> Edit</a>
+                      <a href="{% url 'category_edit' category.id %}" class="btn btn-primary"  ><i class="fas fa-edit"></i> Edit</a>
                     </td>
                   </tr>
 
@@ -71,11 +68,9 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Nom</th>
-                    <th>Post nom</th>
-                    <th>Email</th>
-                    <th>Genre</th>
-                    <th>Cours</th>
+                     <th>Nom Categorie</th>
+                    <th>Date créer</th>
+                    <th>Date mise à jour</th>
                     <th>Action</th>
 
                   </tr>
