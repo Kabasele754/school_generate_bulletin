@@ -2,6 +2,7 @@ from django import forms
 from django.forms.widgets import DateInput, TextInput
 
 from .models import *
+from app_public.models import *
 
 
 class FormSettings(forms.ModelForm):
@@ -131,3 +132,25 @@ class StaffEditForm(CustomUserForm):
     class Meta(CustomUserForm.Meta):
         model = Staff
         fields = CustomUserForm.Meta.fields
+
+
+class CategoryForm(FormSettings):
+    class Meta:
+        model = Category
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title categorie'}),
+        }
+
+
+class ArticleForm(FormSettings):
+    class Meta:
+        model = ArticleBlog
+        #fields = '__all__'
+        fields = ['title','image','status','category','description']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title of the Blog'}),
+            'slug': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Copy the title with no space and a hyphen in between'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Content of the Blog'}),
+        }
