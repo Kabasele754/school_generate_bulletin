@@ -11,6 +11,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{% static 'school_admin/plugins/fontawesome-free/css/all.min.css'%}">
   <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="{% static 'school_admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
   <link rel="stylesheet" href="{% static 'school_admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}">
@@ -43,15 +44,16 @@
   <link rel="stylesheet" href="{% static 'school_admin/plugins/bs-stepper/css/bs-stepper.min.css'%}">
   <!-- dropzonejs -->
   <link rel="stylesheet" href="{% static 'school_admin/plugins/dropzone/min/dropzone.min.css'%}">
-
+{% block custom_css %}
+{% endblock custom_css %}
  </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
+<!--  <div class="preloader flex-column justify-content-center align-items-center">-->
+<!--    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">-->
+<!--  </div>-->
 
   <!-- Navbar -->
     {% include 'school_admin/partials/header.html' %}
@@ -126,6 +128,24 @@
   <link rel="stylesheet" href="{% static 'school_admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'%}">
   <!-- Toastr -->
   <link rel="stylesheet" href="{% static 'school_admin/plugins/toastr/toastr.min.css'%}">
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -493,23 +513,26 @@
   })
 </script>
 
- </script>
  {% for message in messages  %}
-{% if message.tags == 'success' %}
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                {% if message.tags == 'success' %}
+                     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
- <script>
-     var m = "{{ message }}";
-     swal("Perfet !", m,"success")
- </script>
+                     <script>
+                         var m = "{{ message }}";
+                         swal("Perfet !", m,"success")
+                     </script>
 
-  {% else %}
-     <script>
-         var m = "{{ message }}";
-         swal("Erreur !", m,"error")
-     </script>
-    {% endif %}
-{% endfor %}
+                  {% else %}
+                     <script>
+                         var m = "{{ message }}";
+                         swal("Erreur !", m,"error")
+                     </script>
+                    {% endif %}
+                {% endfor %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}
 
 
 </body>

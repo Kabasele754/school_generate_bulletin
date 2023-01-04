@@ -1,5 +1,7 @@
 from django.urls import path
 from  .views import *
 urlpatterns = [
-   path('',DashbordardView.as_view(), name="dashboard_staf"),
+   path('',DashbordardView.as_view(), name="staff_home"),
+   path('all-course/',StaffCourseView.as_view(), name="staff_course"),
+   path('all-course/detail_course/<int:course_id>/',detail_course, name="course_detail"),
 ]

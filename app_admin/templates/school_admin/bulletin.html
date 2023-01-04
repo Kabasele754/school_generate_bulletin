@@ -1,5 +1,15 @@
 {% extends 'school_admin/base.html' %}
 {% load static %}
+{% block custom_css %}
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+crossorigin="anonymous"
+referrerpolicy="no-referrer">
+</script>
+
+
+{% endblock custom_css %}
 <!--side bar left-->
 {% block sidebar %}
 {% include 'school_admin/sidebar.html' %}
@@ -18,9 +28,11 @@
             <h1>DataTables</h1>
           </div>
           <div class="col-sm-6">
+              <button id="download-button">Generate PDF</button>
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Bulletin</li>
+
             </ol>
           </div>
         </div>
@@ -28,7 +40,7 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" id="invoice" >
       <div class="container-fluid">
         <!-- /.row -->
         <!-- /.row -->
@@ -698,3 +710,18 @@
   </div>
 
 {% endblock content %}
+
+{% block custom_js %}
+<script>
+			const button = document.getElementById('download-button');
+
+			function generatePDF() {
+				// Choose the element that your content will be rendered to.
+				const element = document.getElementById('invoice');
+				// Choose the element and save the PDF for your user.
+				html2pdf().from(element).save();
+			}
+
+			button.addEventListener('click', generatePDF);
+		</script>
+{% endblock custom_js %}

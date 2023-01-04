@@ -3,6 +3,7 @@ from django.forms.widgets import DateInput, TextInput
 
 from .models import *
 from app_public.models import *
+from app_staff.models import *
 
 
 class FormSettings(forms.ModelForm):
@@ -81,7 +82,7 @@ class StaffForm(CustomUserForm):
 
     class Meta(CustomUserForm.Meta):
         model = Staff
-        fields = CustomUserForm.Meta.fields+['course']
+        fields = CustomUserForm.Meta.fields
 
 
 class CourseForm(FormSettings):
@@ -90,7 +91,7 @@ class CourseForm(FormSettings):
 
     class Meta:
         model = Course
-        fields = ['name','school_class']
+        fields = ['name','school_class','staff']
 
 
 class SchoolClassForm(FormSettings):
@@ -132,6 +133,9 @@ class StaffEditForm(CustomUserForm):
     class Meta(CustomUserForm.Meta):
         model = Staff
         fields = CustomUserForm.Meta.fields
+
+
+
 
 
 class CategoryForm(FormSettings):
