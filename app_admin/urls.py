@@ -32,7 +32,7 @@ urlpatterns = [
 
    # inbox
    path('inbox/',InboxView.as_view(), name="inbox"),
-   path('inbox/compose/',ComposeView.as_view(), name="compose"),
+   path('inbox/compose/',create_mail_view, name="compose"),
    path('bulletin/',BulletinView.as_view(), name="bulletin"),
 
 
