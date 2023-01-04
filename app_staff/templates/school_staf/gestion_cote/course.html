@@ -14,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Liste des cours par classe</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Liste des cours par classe</li>
             </ol>
           </div>
         </div>
@@ -34,9 +34,8 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Liste des éléves</h3>
+                <h3 class="card-title">Liste des cours par classe</h3>
                 <div class="clearfix">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Cours</button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -60,7 +59,7 @@
                     <td>{{cours.school_class.class_num }}</td>
                     <td>
                       <a href="{% url 'course_detail' cours.id %}" class="btn btn-primary" ><i class="fas fa-eye"></i> Detail</a>
-                      <a href="{% url 'edit_course' cours.id %}" class="btn btn-primary"  ><i class="fas fa-edit"></i> Edit</a>
+<!--                      <a href="{% url 'edit_course' cours.id %}" class="btn btn-primary"  ><i class="fas fa-edit"></i> Edit</a>-->
                     </td>
                   </tr>
                   {% endfor %}

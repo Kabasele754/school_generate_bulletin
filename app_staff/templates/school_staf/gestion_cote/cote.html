@@ -1,7 +1,7 @@
 {% extends 'school_admin/base.html' %}
 <!--side bar left-->
 {% block sidebar %}
-{% include 'school_admin/sidebar.html' %}
+{% include 'school_staf/sidebar.html' %}
 
 {% endblock sidebar %}
 
@@ -14,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Liste de cote des éleves</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Liste de cote des éleves</li>
             </ol>
           </div>
         </div>
@@ -36,7 +36,7 @@
               <div class="card-header">
                 <h3 class="card-title">Liste des éléves</h3>
                 <div class="clearfix">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Cours</button>
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter cote éléve </button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -75,7 +75,7 @@
 
                     </td>
                     <td>
-                      <input class="btn btn-primary" value="Valider" type="submit">
+                        <a href="" class="btn btn-primary"  ><i class="fas fa-edit"></i> Edit</a>
                     </td>
 
                   </tr>
@@ -131,7 +131,27 @@
                     <!-- your steps content here -->
                      <form method="post">
                       {% csrf_token %}
-                         {{  form.as_p }}
+                       <label>Eleve</label>
+                       <select class="form-control" name="student">
+                         {% for student in student_by_class %}
+                         <option value="{{ student.id }}">
+                           {{ student.admin.last_name }}
+                         </option>
+                          {% endfor %}
+
+                       </select>
+                       <label>Periode</label>
+
+                       <select class="form-control"  name="period">
+                         {% for period in periods %}
+                         <option value="{{period.id}}">
+                           {{ period }}
+                         </option>
+                          {% endfor %}
+                       </select>
+                       <label>Note</label>
+                       <input class="form-control" type="text" name="note">
+
                          <input type="submit" value="Enregistrer">
                     </form>
 
