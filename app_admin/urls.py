@@ -2,13 +2,18 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-   path('',admin_home, name="admin_home"),
+   path("",admin_home, name="admin_home"),
    path("admin_view_profile", admin_view_profile,
         name='admin_view_profile'),
+    # year and period
+   path("annee-scolaire/", SchoolYearView.as_view(),name="year"),
+   path("periode/", PeriodView.as_view(),name="period"),
+   path("periode/edit/<int:periode_id>", edit_period,name="period_edit"),
    # student
    path('student/',StudentView.as_view(), name="student"),
    path("student/edit/<int:student_id>",
         edit_student, name='edit_student'),
+   path('student/cotes', cote_student, name="student_cote"),
    # staff
    path('staff/',StaffView.as_view(), name="staff"),
    path("staff/edit/<int:staff_id>", edit_staff, name='edit_staff'),

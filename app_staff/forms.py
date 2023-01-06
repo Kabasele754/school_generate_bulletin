@@ -17,6 +17,13 @@ class CotationForm(FormSettings):
         model = Cotation
         fields = ['course','student','period','note']
 
+class ComportementForm(FormSettings):
+
+    class Meta:
+        model = Comportement
+        fields = ['conduite','decision']
+
+
 
 
 

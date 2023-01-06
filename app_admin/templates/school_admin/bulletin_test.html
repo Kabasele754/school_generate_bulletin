@@ -19,55 +19,62 @@ referrerpolicy="no-referrer">
 
 {% block content %}
 <!-- Content Wrapper. Contains page content -->
-   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-
-
-    <section class="content">
+  <div class="content-wrapper" >
+  <!-- Content Header (Page header) -->
+    <section class="content-header">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>DataTables</h1>
+          </div>
+          <div class="col-sm-6">
+              <button id="download-button">Generate PDF</button>
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Bulletin</li>
 
-            <!-- Main content -->
-            <div class="invoice p-3 mb-3">
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-
-
-              <div class="container-fluid">
+    <!-- Main content -->
+    <section class="content" id="invoice" >
+      <div class="container-fluid">
         <!-- /.row -->
         <!-- /.row -->
         <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <div class="row p-0">
+                <div class="row">
                   <div class="col-3">
                 <div class="clearfix">
-                <img  class="float-left" src="{% static 'school_admin/dist/img/flag.png' %}" width="80px" height="50px">
+                <img  class="float-left" src="{% static 'school_admin/dist/img/flag.png' %}" width="180px" height="150px">
               </div>
                     </div>
                    <div class="col-6">
                 <div class="clearfix">
-                <h6 class=" " style="text-align:center;">REPUBLIQUE DENOCRATIQUE DU CONGO </h6>
-                  <h6 class=" " style="text-align:center;">MINISTRE DE L'ENSEIGNEMENT PRIMAIRE SECONDAIRE ET
-                                   INITIATION A LA NOUVELLE CITOYENNETE</h6>
+                <h3 class=" " style="text-align:center;">REPUBLIQUE DENOCRATIQUE DU CONGO </h3><P></P>
+                  <h3 class=" " style="text-align:center;">MINISTRE DE L'ENSEIGNEMENT PRIMAIRE SECONDAIRE ET </h3><P></P>
+                                    <h3 class=" " style="text-align:center;">INITIATION A LA NOUVELLE CITOYENNETE</h3>
 
                 </div>
                    </div>
                       <div class="col-3">
                   <div class="clearfix">
-               <img  class="float-right" src="{% static 'school_admin/dist/img/tete.jpg' %}" width="80px" height="50px">
+               <img  class="float-right" src="{% static 'school_admin/dist/img/tete.jpg' %}" width="180px" height="150px">
               </div>
                       </div>
                   </div>
               </div>
               <!-- ./card-header -->
               <div class="card-body">
-                 <table class="table-bordered"  style="width:100%">
-                 <table class="table-bordered"  style="width:100%">
+                 <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th>N°ID</th>
+                      <th>N° ID</th>
                       <th></th>
                       <th></th>
                       <th></th>
@@ -84,13 +91,15 @@ referrerpolicy="no-referrer">
                       <th></th>
                       <th></th>
                       <th></th>
+
+
 
                     </tr>
                   </thead>
 
                 </table>
                 <p></p>
-                <table class="table-bordered" style="width:100%">
+                <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
                       <th>PROVINCE DE LOMAMI</th>
@@ -99,44 +108,44 @@ referrerpolicy="no-referrer">
                   </thead>
                   <tbody>
                   <td>
-                    <p style="font-size:10px; " >VILLE : MWENE-DITU</p>
-                    <p style="font-size:10px; ">COMMUNE : BONDOYI</p>
-                    <p style="font-size:10px; ">ECOLE : INSTITUT BONDOYI</p>
-                    <p style="font-size:10px; ">CODE : 9006613</p>
+                    <p>VILLE : MWENE-DITU</p>
+                    <p>COMMUNE : BONDOYI</p>
+                    <p>ECOLE : INSTITUT BONDOYI</p>
+                    <p>CODE : 9006613</p>
                   </td>
                   <td>
-                   <p style="font-size:10px; "> ELEVE :................................................................... SEXE:....... </p>
-                    <p style="font-size:10px; ">NE(E) A :....................LE ..../.../...... </p>
-                    <p style="font-size:10px; ">CLASSE :....................................... </p>
-                    <p style="font-size:10px; ">N° PERM :</p>
+                   <p> ELEVE :................................................................... SEXE:....... </p>
+                    <p>NE(E) A :....................LE ..../.../...... </p>
+                    <p>CLASSE :....................................... </p>
+                    <p>N° PERM :</p>
                   </td>
                   </tbody>
 
                 </table>
-                <table class="table-bordered " style="width:100%">
+                <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th class="text-center" >Bulletin de la 3éme, 4éme (1)            ANNEE MECANIQUE GENERALE            ANNEE SCOLAIRE 20.... 20....</th>
+                      <th>Bulletin de la 3éme, 4éme (1)            ANNEE MECANIQUE GENERALE            ANNEE SCOLAIRE 20.... 20....</th>
 
                     </tr>
                   </thead>
 
-                </table>
-                 <table class="table-bordered" style="width:100%">
 
+                </table>
+                 <table class="table table-bordered table-hover">
                   <thead>
 
 
                     <tr>
-                      <th class="text-center"> BRANCHES </th>
-                      <th class="text-center" colspan="4">
+                      <th> BRANCHES </th>
+                      <th colspan="4">
                         PREMIER SEMESTRE
 
 
                       </th >
-                       <th class="text-center" colspan="5"> SECOND SEMESTRE </th>
-                      <th style="background-color: #999999" > </th>
-                      <th class="text-center" colspan="3"> EXAMEN DE REPECHANGE </th>
+                       <th colspan="5"> SECOND SEMESTRE </th>
+                      <th> </th>
+                      <th colspan="3"> EXAMEN DE REPECHANGE </th>
 
                     </tr>
                   </thead>
@@ -162,7 +171,7 @@ referrerpolicy="no-referrer">
 
 
 
-                     <td style="background-color: #999999 "></td>
+                     <td></td>
                     <td colspan="2">yy</td>
 
                   </tr>
@@ -188,7 +197,7 @@ referrerpolicy="no-referrer">
                      <td></td>
                     <td></td>
                      <td></td>
-                     <td style="background-color: #999999; text-color: #999999;">0000</td>
+                     <td></td>
                      <td>%</td>
                       <td>SIGN. PROF</td>
 
@@ -212,7 +221,7 @@ referrerpolicy="no-referrer">
                      <td>20</td>
                     <td>40</td>
                      <td>80</td>
-                     <td style="background-color: #999999"></td>
+                     <td></td>
                      <td></td>
                       <td></td>
                   </tr>
@@ -601,7 +610,8 @@ referrerpolicy="no-referrer">
 
                 </table>
 
-                 </table>
+                <p></p>
+
               </div>
               <!-- /.card-body -->
             </div>
@@ -612,23 +622,89 @@ referrerpolicy="no-referrer">
       </div>
       <!-- /.container-fluid -->
 
-              <!-- this row will not appear when printing -->
-              <div class="row no-print">
-                <div class="col-12">
-                  <a href="school_admin/bulletin-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                    Payment
-                  </button>
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                    <i class="fas fa-download"></i> Generate PDF
-                  </button>
+      <div class="modal fade" id="modal-lg">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Formulaire d'enregistrement</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- /.row -->
+
+            <div class="card card-default">
+<!--              <div class="card-header">-->
+<!--                <h3 class="card-title">Formulaire d'enregistrement</h3>-->
+<!--              </div>-->
+              <div class="card-body p-0">
+                <div class="bs-stepper">
+                  <div class="bs-stepper-header" role="tablist">
+                    <!-- your steps here -->
+                    <div class="step" data-target="#logins-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">Logins</span>
+                      </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#information-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">Various information</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="bs-stepper-content">
+                    <!-- your steps content here -->
+                    <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                      </div>
+                      <button class="btn btn-primary" onclick="stepper.next()">Next</button>
+                    </div>
+                    <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                      <div class="form-group">
+                        <label for="exampleInputFile">File input</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                          </div>
+                          <div class="input-group-append">
+                            <span class="input-group-text">Upload</span>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <!-- /.card-body -->
+
             </div>
-            <!-- /.invoice -->
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+            <!-- /.card -->
+
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+      <!-- /.modal -->
     </section>
     <!-- /.content -->
   </div>
@@ -637,7 +713,15 @@ referrerpolicy="no-referrer">
 
 {% block custom_js %}
 <script>
-  //window.addEventListener("load", window.print());
-</script>
+			const button = document.getElementById('download-button');
 
+			function generatePDF() {
+				// Choose the element that your content will be rendered to.
+				const element = document.getElementById('invoice');
+				// Choose the element and save the PDF for your user.
+				html2pdf().from(element).save();
+			}
+
+			button.addEventListener('click', generatePDF);
+		</script>
 {% endblock custom_js %}

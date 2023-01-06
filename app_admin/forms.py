@@ -112,9 +112,21 @@ class SchoolYearForm(FormSettings):
         model = SchoolYear
         fields = '__all__'
         widgets = {
-            'start_year': DateInput(attrs={'type': 'date'}),
-            'end_year': DateInput(attrs={'type': 'date'}),
+            'start_year': DateInput(attrs={'type': 'date','class':'form-control datetimepicker-input'},format="%dT-%m-%Y"),
+            'end_year': DateInput(attrs={'type': 'date','class':'form-control'},format="%dT-%m-%Y"),
         }
+
+class PeriodForm(FormSettings):
+    def __init__(self, *args, **kwargs):
+        super(PeriodForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Period
+        fields = '__all__'
+        # widgets = {
+        #     'start_year': DateInput(attrs={'type': 'date','class':'form-control datetimepicker-input'},format="%dT-%m-%Y"),
+        #     'end_year': DateInput(attrs={'type': 'date','class':'form-control'},format="%dT-%m-%Y"),
+        # }
 
 
 class StudentEditForm(CustomUserForm):

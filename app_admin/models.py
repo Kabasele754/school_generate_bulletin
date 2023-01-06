@@ -54,7 +54,7 @@ class SchoolYear(models.Model):
     end_year = models.DateField()
 
     def __str__(self):
-        return "From " + str(self.start_year) + " to " + str(self.end_year)
+        return str(self.start_year) + " == " + str(self.end_year)
 
 
 class Period(models.Model):
@@ -64,8 +64,8 @@ class Period(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # def __str__(self):
-    #     return str(self.period_name) + str(self.period_num)
+    def __str__(self):
+        return str(self.period_name)
 
 
 class SchoolClass(models.Model):
@@ -80,7 +80,6 @@ class SchoolClass(models.Model):
 
 class Admin(models.Model):
     admin = models.OneToOneField(User, on_delete=models.CASCADE)
-
 
 
 class Student(models.Model):
@@ -99,6 +98,7 @@ class Staff(models.Model):
 
     def __str__(self):
         return self.admin.last_name + " " + self.admin.first_name
+
 
 class Course(models.Model):
     name = models.CharField(max_length=120)

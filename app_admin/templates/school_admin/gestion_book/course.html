@@ -47,7 +47,8 @@
                     <th>Nom Cours</th>
                     <th>Nom classe</th>
                     <th>Numero Classe</th>
-                    <th>Action</th>
+                    <th>Enseignant</th>
+                    <th class="text-center">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -57,11 +58,25 @@
                     <td>{{cours.name }}</td>
                     <td>{{cours.school_class.class_name }} </td>
                     <td>{{cours.school_class.class_num }}</td>
-                    <td>
-                      <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-eye"></i> Detail</a>
-                      <a href="{% url 'edit_course' cours.id %}" class="btn btn-primary"  ><i class="fas fa-edit"></i> Edit</a>
-                    </td>
-                  </tr>
+                    <td><a class="btn btn-info btn-sm" href="{% url 'edit_staff' cours.id %}">{{ cours.staff }}</a></td>
+                     <td class="project-actions text-center">
+                          <a class="btn btn-primary btn-sm" href="#">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                          </a>
+                          <a class="btn btn-info btn-sm" href="{% url 'edit_course' cours.id %}">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Archiver
+                          </a>
+                      </td>
+
                   {% endfor %}
 
                   </tbody>
@@ -70,7 +85,8 @@
                     <th>Nom Cours</th>
                     <th>Nom classe</th>
                     <th>Numero Classe</th>
-                    <th>Action</th>
+                     <th>Enseignant</th>
+                    <th class="text-center">Action</th>
 
                   </tr>
                   </tfoot>

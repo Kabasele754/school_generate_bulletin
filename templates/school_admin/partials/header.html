@@ -146,14 +146,13 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">{{ user }}</span>
           <div class="dropdown-divider"></div>
-          {% if user.user_type == 1%}
+          {% if user.user_type != 1 %}
             <a href="{% url 'admin_view_profile' %}" class="dropdown-item">
 
             <i class="fa fa-user mr-4"></i> Profile
           </a>
           {% else %}
           <a href="{% url 'profile_staff' %}" class="dropdown-item">
-
 
             <i class="fa fa-user mr-4"></i> Profile
           </a>

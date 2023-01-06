@@ -14,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Liste cotes des éleves pour toute les classes</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Les Cotes des éléves</li>
             </ol>
           </div>
         </div>
@@ -36,7 +36,9 @@
               <div class="card-header">
                 <h3 class="card-title">Liste des éléves</h3>
                 <div class="clearfix">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Enseignant</button>
+
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter comportement éléve </button>
+
               </div>
               </div>
               <!-- /.card-header -->
@@ -45,33 +47,40 @@
                   <thead>
                   <tr>
                     <th>Image</th>
-                    <th>Nom</th>
-                    <th>Post nom</th>
-                    <th>Email</th>
+                    <th>Eléve</th>
                     <th>Genre</th>
+                    <th>Classe</th>
+                    <th>Periode</th>
+                    <th>Enseignant</th>
                     <th>Cours</th>
-                    <th class="text-center" >Action</th>
+                    <th>Note</th>
+                    <th class="project-actions text-center">Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  {% for staff in staff%}
+                  {% for cote in cotes %}
                   <tr>
-                      <td>
-                      <img alt="Image" width="50px" height="25px" class="table-avatar" src="{{ staff.admin.profile_pic }}">
+                    <td>
+
+                      <img alt="Image" width="50px" height="25px" class="table-avatar" src="{{ cote.student.admin.profile_pic }}">
                     </td>
-                    <td>{{ staff.admin.first_name }}</td>
-                    <td>{{ staff.admin.last_name }}
+                    <td>{{ cote.student }}</td>
+                    <td>{{ cote.student.admin.gender }}
                     </td>
-                    <td>{{ staff.admin.email }}</td>
-                    <td> {{ staff.admin.gender }}</td>
-                    <td>{{ staff.course }}</td>
+                     <td>{{ cote.student.school_class }}</td>
+                    <td>{{ cote.period }}</td>
+                    <td> {{ cote.staff }}</td>
+                    <td> {{ cote.course }}</td>
+                    <td> {{ cote.note }}</td>
+
+
                       <td class="project-actions text-center">
                           <a class="btn btn-primary btn-sm" href="#">
                               <i class="fas fa-folder">
                               </i>
                               View
                           </a>
-                          <a class="btn btn-info btn-sm" href="{% url 'edit_staff' staff.id %}">
+                          <a class="btn btn-info btn-sm" href="">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
@@ -84,19 +93,19 @@
                       </td>
 
                   </tr>
-
                   {% endfor %}
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Image</th>
-                    <th>Nom</th>
-                    <th>Post nom</th>
-                    <th>Email</th>
+                     <th>Image</th>
+                    <th>Eléve</th>
                     <th>Genre</th>
+                    <th>Classe</th>
+                    <th>Periode</th>
+                    <th>Enseignant</th>
                     <th>Cours</th>
-                    <th class="text-center" >Action</th>
-
+                    <th>Note</th>
+                    <th class="project-actions text-center">Action</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -139,7 +148,7 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Information Enseignant</h3>
+              <h3 class="card-title">Information Eléve</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -149,21 +158,22 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label >Nom</label>
-                {{ form.first_name }}
+                <label >Eleve</label>
+                <select  class="form-control custom-select" name="student">
+                  <option selected disabled>Select eleve</option>
+                  {% for cote in cotes %}
+                  <option value="{{ code.student.id }}">{{ cote.student }}</option>
+                  {% endfor %}
+                </select>
               </div>
                <div class="form-group">
-                <label >Post Nom</label>
-                {{ form.last_name }}
-              </div>
-              <div class="form-group">
-                <label >Email</label>
-                {{ form.email}}
-              </div>
-              <div class="form-group">
-                <label >Sexe</label>
-                  {{ form.gender }}
-
+                <label >Period </label>
+               <select  class="form-control custom-select" name="period">
+                  <option selected disabled>Select period</option>
+                  {% for cote in cotes %}
+                  <option value="{{ code.period }}">{{ cote.period }}</option>
+                  {% endfor %}
+                </select>
               </div>
 
             </div>
@@ -174,7 +184,7 @@
         <div class="col-md-6">
           <div class="card card-secondary">
             <div class="card-header">
-              <h3 class="card-title">Autre Information</h3>
+              <h3 class="card-title">Comportement eleve </h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -183,34 +193,49 @@
               </div>
             </div>
             <div class="card-body">
+              <div class="form-group">
+               <label >Sa Coduite</label>
+                <select  class="form-control custom-select" name="conduite">
+                  <option selected disabled>Select conduite</option>
+                    <option value="">Poli</option>
+                  <option value="">Impoli</option>
+
+                </select>
+              </div>
+
                <div class="form-group">
-                <label for="inputDescription">Addresse</label>
-                <textarea id="inputDescription" class="form-control" rows="4" name="address"></textarea>
+                <label >Decition du jury </label>
+                <select  class="form-control custom-select" name="decision">
+                  <option selected disabled>Select conduite</option>
+                    <option value="">Passe</option>
+                  <option value="">Echouer</option>
+
+                </select>
               </div>
-              <div class="form-group">
-                <label >Photo</label>
-                {{ form.profile_pic }}
-              </div>
-              <div class="form-group">
-                <label >Mot de pass </label>
-                {{ form.password }}
-                </div>
+
 
             <!-- /.card-body -->
           </div>
+
+          <!-- /.card -->
           <!-- /.card -->
         </div>
+
       </div>
+
 
       </div>
                                <div class="row">
         <div class="col-12">
           <!-- /<a href="#" class="btn btn-secondary">Cancel</a> -->
-          <input type="submit" value="Ajouter enseignant" class="btn btn-success float-right">
+          <input type="submit" value="Enregister" class="btn btn-success float-right">
         </div>
       </div>
         </form>
     </section>
+
+
+
 
 
               <!-- /.card-body -->

@@ -27,10 +27,13 @@ class Cotation(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Comportement(models.Model):
+
+    CONDUITE_TYPE = [("impoli", "Impoli"), ("poli", "Poli")]
+    DECITION_TYPE = [("passe", "Passe"), ("echouer", "Echouer")]
     student = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
     period = models.ForeignKey(Period, on_delete=models.DO_NOTHING)
-    conduite = models.CharField(max_length=30)
-    decision = models.CharField(max_length=30)
+    conduite = models.CharField(max_length=30, choices=CONDUITE_TYPE)
+    decision = models.CharField(max_length=30, choices=DECITION_TYPE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

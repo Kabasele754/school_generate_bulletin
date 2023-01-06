@@ -28,7 +28,11 @@ class StaffCourseView(View):
         context = {}
         #course_one = get_object_or_404(Course, pk=pk)
         staff_one = Staff.objects.get(admin=request.user)
-        staff_course = staff_one.course_set.all()
+        try:
+            staff_course = staff_one.course_set.all()
+        except staff_course.OperationalError:
+            messages.error(request, "Operational Error")
+            return redirect('staff_home')
         # print("Staff", staff_one)
         # print("Staff", staff_course)
         context['staff_course'] = staff_course

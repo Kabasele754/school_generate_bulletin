@@ -14,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Article</h1>
+            <h1>Periode</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Article</li>
+              <li class="breadcrumb-item active">Periode</li>
             </ol>
           </div>
         </div>
@@ -34,9 +34,9 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Liste des Articles</h3>
+                <h3 class="card-title">Liste des éléves</h3>
                 <div class="clearfix">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Event</button>
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Period</button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -44,61 +44,45 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Titre</th>
-                    <th>Categorie</th>
-                    <th>Publishé</th>
-                      <th>Etat</th>
-                    <th>Image Slider</th>
-                    <th>Image</th>
-                    <th>Action</th>
+                      <th>Nom periode</th>
+                      <th>Numero periode</th>
+                    <th>Année Scolaire </th>
+
+                    <th class="text-center">Action</th>
+
                   </tr>
                   </thead>
                   <tbody>
-                  {% for blog in all_blogs %}
+                  {% for all_period in all_period %}
                   <tr>
-                    <td>{{ blog.title }}</td>
-                    <td>{{ blog.category }}
-                    </td>
-                    <td>{{ blog.published }}</td>
-                    <td> {{ blog.status }}</td>
-                    <td> {{ blog.type_article_slid }}</td>
-                    <td>
+                    <td>{{ all_period.period_name }}</td>
+                    <td>{{ all_period.period_num }}</td>
+                    <td>{{ all_period.year_school }}</td>
 
-                        <img alt="Image" width="50px" height="25px" class="table-avatar" src="{{ blog.image.url }}">
 
-                    </td>
-                       <td class="project-actions text-center">
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="{% url 'update' blog.id %}">
+
+                      <td class="project-actions text-center">
+
+                          <a class="btn btn-info btn-sm" href="{% url 'period_edit' all_period.id %}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Archiver
-                          </a>
+
                       </td>
 
+
                   </tr>
-
-
                   {% endfor %}
+
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Titre</th>
-                    <th>Categorie</th>
-                    <th>publishé</th>
-                       <th>Etat</th>
-                       <th>Image Slider</th>
-                    <th>Image</th>
-                    <th>Action</th>
+                    <th>Date du début de l'Année</th>
+                    <th>Date de la cloture de l'Année</th>
+                       <th>Année Scolaire </th>
+
+                    <th class="text-center">Action</th>
 
                   </tr>
                   </tfoot>
@@ -134,37 +118,11 @@
               <div class="card-body p-3">
 
                     <!-- your steps content here -->
-                    <form role="form" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-        <div class="row">
-        {% for field in form  %}
-            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-            {{field.errors}}
-               <br>
-                {% if not labels_uppercase %}{{ field.label|safe }}{% else %}{{ field.label|safe|upper }}{% endif %}{% if field.field.required %}{% endif %}
-<!--                {{field.label_tag}}-->
-              <p></p>
-                {{field}}
-
-                </div>
-
-        {% endfor %}
-        </div>
-
-
-    <!-- /.card-body -->
-<br><br>
-    <div class="card-footer">
-        <button type="submit" class="btn btn-primary btn-block">
-            {% if button_text %}
-            {{button_text}}
-            {% else %}
-            Edit {{course.name}}
-            {% endif %}
-
-        </button>
-    </div>
-</form>
+                     <form method="post">
+                      {% csrf_token %}
+                         {{  form.as_p }}
+                         <input type="submit" value="Enregistrer">
+                    </form>
 
 
 
@@ -191,7 +149,5 @@
     </section>
     <!-- /.content -->
   </div>
-
-
 
 {% endblock content %}

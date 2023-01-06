@@ -14,6 +14,8 @@ from django.views.generic import UpdateView
 from .forms import *
 from .models import *
 from app_public.models import *
+from app_staff.models import *
+from app_staff.forms import *
 
 from django.views.generic import TemplateView, DetailView, View, CreateView
 # impoertation send mail
@@ -31,6 +33,131 @@ class DashbordardView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['login'] = "Hi "
         return context
+
+
+#add School year function
+
+class SchoolYearView(View):
+    model = SchoolYear
+    success_msg = 'Category created.'
+    form_class = SchoolYearForm
+    template_name = "school_admin/gestion_school/school.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        form_school = self.form_class
+        all_year = SchoolYear.objects.all()
+        context['form'] = form_school
+        context['all_year'] = all_year
+        return render(request, self.template_name , context)
+
+    # create a post for show one and to make a comment
+    def post(self, request):
+        school_form = self.form_class(request.POST)
+        context = {'form': school_form, 'page_title': 'Ajouter Categorie'}
+        if request.method == 'POST':
+            if school_form.is_valid():
+                start_year = school_form.cleaned_data.get('start_year')
+                end_year = school_form.cleaned_data.get('end_year')
+                try:
+                    obj_school = SchoolYear.objects.create(
+                         start_year=start_year,
+                        end_year=end_year
+                        )
+                    if obj_school == "":
+                        messages.error(request, "Ne peut etre ajouté: ")
+                    else:
+                        obj_school.save()
+                    messages.success(request, f"Vous avez ajouté category  avec succé")
+                    return redirect(reverse('year'))
+                except Exception as e:
+                    messages.error(request, f" ne peut etre ajouté : " + str(e))
+            else:
+                form = SchoolClassForm()
+                messages.error(request, "Ne peut etre ajouté: ")
+                context['form'] = form
+        return render(request, self.template_name, context)
+
+# add period function
+class PeriodView(View):
+    model = Period
+    success_msg = 'Category created.'
+    form_class = PeriodForm
+    template_name = "school_admin/gestion_school/period.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        form_period = self.form_class
+        all_period = self.model.objects.all()
+        context['form'] = form_period
+        context['all_period'] = all_period
+        return render(request, self.template_name , context)
+
+    # create a post for show one and to make a comment
+    def post(self, request):
+        period_form = self.form_class(request.POST)
+        context = {'form': period_form, 'page_title': 'Ajouter Categorie'}
+        if request.method == 'POST':
+            if period_form.is_valid():
+                period_name = period_form.cleaned_data.get('period_name')
+                period_num = period_form.cleaned_data.get('period_num')
+                year_school = period_form.cleaned_data.get('year_school')
+                try:
+                    obj_period = Period.objects.create(
+                         period_name=period_name,
+                        period_num=period_num,
+                        year_school=year_school
+
+                        )
+                    if obj_period == "":
+                        messages.error(request, "Ne peut etre ajouté: ")
+                    else:
+                        obj_period.save()
+                    messages.success(request, f"Vous avez ajouté period  avec succé")
+                    return redirect(reverse('period'))
+                except Exception as e:
+                    messages.error(request, f" ne peut etre ajouté : " + str(e))
+            else:
+                form = PeriodForm()
+                messages.error(request, "Ne peut etre ajouté: ")
+                context['form'] = form
+        return render(request, self.template_name, context)
+# update category
+def edit_period(request, periode_id):
+
+    periode_id = int(periode_id)
+    try:
+        period_one = Period.objects.get(id=periode_id)
+
+    except Period.DoesNotExist:
+        messages.error(request, "Key Not Exist")
+        return redirect('period')
+    period_form = PeriodForm(request.POST or None, instance=period_one)
+    context = {
+        'form': period_form,
+        'period_one': period_one,
+        'page_title': 'Edit Course'
+    }
+    if request.method == 'POST':
+        if period_form.is_valid():
+            period_name = period_form.cleaned_data.get('period_name')
+            period_num = period_form.cleaned_data.get('period_num')
+            year_school = period_form.cleaned_data.get('year_school')
+            try:
+                period = Period.objects.get(id=period_one)
+                period.period_name = period_name
+                period.period_num = period_num
+                period.year_school = year_school
+                period.save()
+                messages.success(request, "Successfully Updated")
+            except:
+                messages.error(request, "Could Not Update")
+        else:
+            messages.error(request, "Could Not Update")
+
+    return render(request, 'school_admin/gestion_school/edit_period.html', context)
+
+# end period
 # Begin gestion student
 
 class StudentView(View):
@@ -82,7 +209,6 @@ class StudentView(View):
                 messages.error(request, "Please fulfil all requirements")
 
         return render(request, self.template_name, context)
-
 
 def edit_student(request, student_id):
     student_id = int(student_id)
@@ -136,6 +262,133 @@ def edit_student(request, student_id):
             messages.error(request, "Please Fill Form Properly!")
     else:
         return render(request, "school_admin/gestion_student/edit_student.html", context)
+
+# detail student
+def detail_student(request, cote_id):
+    cote_id = int(cote_id)
+    try:
+        cotes = Cotation.objects.get(id=cote_id)
+    except Cotation.DoesNotExist:
+        messages.error(request, "Key Not Exist")
+        return redirect('student_cote')
+    form = StudentForm(request.POST or None, instance=cotes)
+    context = {
+        'form': form,
+        'cotes': cotes,
+        'page_title': 'Edit Student'
+    }
+    if request.method == 'POST':
+        if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            address = form.cleaned_data.get('address')
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            gender = form.cleaned_data.get('gender')
+            password = form.cleaned_data.get('password') or None
+            school_class = form.cleaned_data.get('school_class')
+            student_num = form.cleaned_data.get('student_num')
+            passport = request.FILES.get('profile_pic') or None
+
+        else:
+            messages.error(request, "Please Fill Form Properly!")
+    else:
+        return render(request, "school_admin/gestion_student/edit_student.html", context)
+
+# generate
+def generate_bulletin(request):
+    return render(request, )
+
+class CotationStudentView(View):
+    model = Cotation
+    template_name = "school_admin/gestion_student/cote_student.html"
+    form_class = ComportementForm
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class
+        cotes = self.model.objects.all()
+        # url site https://restcountries.com/
+        #data_country = requests.get("https://restcountries.com/v3.1/all").json()
+
+        return render(request, self.template_name, {'form': form, 'cotes': cotes })
+
+    def post(self, request):
+        form = ComportementForm(request.POST or None, request.FILES or None)
+        context = {'form': form, 'page_title': 'Add Comportement'}
+        if request.method == 'POST':
+            period = request.POST['period']
+            student = request.POST['student']
+            conduite = request.POST['conduite']
+            decision = request.POST['decision']
+            print("See PK Student", student)
+
+            # get object id student and period
+            get_period = Period.objects.get(id=period)
+            get_student = Student.objects.get(id=student)
+
+            # get_p = Period.objects.get(id=get_period)
+            # get_s = Student.objects.get(id=get_student)
+
+            try:
+                comportement = Comportement()
+                comportement.student=get_student
+                comportement.period=get_period
+                comportement.conduite=conduite
+                comportement.decision=decision
+
+                comportement.save()
+
+                messages.success(request, "Successfully Added")
+                return redirect(reverse('student'))
+
+            except Exception as e:
+                messages.error(request, "Could Not Add " + str(e))
+        else:
+            messages.error(request, "Please fulfil all requirements")
+
+        return render(request, self.template_name, context)
+
+
+def cote_student(request, template_name = "school_admin/gestion_student/cote_student.html"):
+    context = {}
+
+    cotes = Cotation.objects.all()
+    context['cotes'] = cotes
+
+    context['page_title'] = 'Add Comportement'
+    if request.method == 'POST':
+        period = request.POST['period']
+        student = request.POST['student']
+        conduite = request.POST['conduite']
+        decision = request.POST['decision']
+        print("See PK Student", student)
+        print("See PK period", period)
+
+        # get object id student and period
+        get_period = Period.objects.get(id=period)
+        get_student = Student.objects.get(id=student)
+
+        # get_p = Period.objects.get(id=get_period)
+        # get_s = Student.objects.get(id=get_student)
+
+        try:
+            comportement = Comportement()
+            comportement.student=get_student
+            comportement.period=get_period
+            comportement.conduite=conduite
+            comportement.decision=decision
+
+            comportement.save()
+
+            messages.success(request, "Successfully Added")
+            return redirect(reverse('student'))
+
+        except Exception as e:
+            messages.error(request, "Could Not Add " + str(e))
+    else:
+        messages.error(request, "Please fulfil all requirements")
+
+    return render(request, template_name, context)
 
 # End gestion student
 
@@ -553,6 +806,14 @@ def add_student(request):
 # add profile admin
 def admin_view_profile(request):
     admin = get_object_or_404(Admin, admin=request.user)
+
+    # try:
+    #     #admin = Admin.objects.get(admin=request.user)
+    #     admin = get_object_or_404(Admin, admin=request.user)
+    # except Admin.TypeError:
+    #     messages.error(request, "Operational Error")
+    #     return redirect('admin_home')
+
     form = AdminForm(request.POST or None, request.FILES or None,
                      instance=admin)
     context = {'form': form,

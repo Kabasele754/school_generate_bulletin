@@ -45,27 +45,47 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
+                    <th>Image</th>
                     <th>Nom</th>
                     <th>Post nom</th>
                     <th>Email</th>
                     <th>Genre</th>
                     <th>Classe</th>
-                    <th>Action</th>
+                    <th class="project-actions text-center">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   {% for stud in studs %}
                   <tr>
+                    <td>
+
+                      <img alt="Image" width="50px" height="25px" class="table-avatar" src="{{ stud.admin.profile_pic }}">
+                    </td>
                     <td>{{ stud.admin.first_name }}</td>
                     <td>{{ stud.admin.last_name }}
                     </td>
                     <td>{{ stud.admin.email }}</td>
                     <td> {{ stud.admin.gender }}</td>
                     <td>{{ stud.school_class }}</td>
-                    <td>
-                      <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-eye"></i> Detail</a>
-                      <a href="{% url 'edit_student' stud.id %}" class="btn btn-primary" ><i class="fas fa-edit"></i> Edit</a>
-                    </td>
+
+                      <td class="project-actions text-center">
+                          <a class="btn btn-primary btn-sm" href="#">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                          </a>
+                          <a class="btn btn-info btn-sm" href="{% url 'edit_student' stud.id %}">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Archiver
+                          </a>
+                      </td>
+
                   </tr>
                   {% endfor %}
                   </tbody>
@@ -76,7 +96,7 @@
                     <th>Email</th>
                     <th>Genre</th>
                     <th>Addresse</th>
-                    <th>Action</th>
+                    <th class="project-actions text-center">Action</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -111,13 +131,115 @@
               <div class="card-body p-3">
 
                     <!-- your steps content here -->
-                     <form method="post">
+
+                         <section class="content">
+                            <form method="post" enctype="multipart/form-data">
                       {% csrf_token %}
-                         {{  form.as_p }}
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Information Eléve</h3>
 
-                         <input type="submit" value="Enregistrer">
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label >Nom</label>
+                {{ form.first_name }}
+              </div>
+               <div class="form-group">
+                <label >Post Nom</label>
+                {{ form.last_name }}
+              </div>
+              <div class="form-group">
+                <label >Email</label>
+                {{ form.email}}
+              </div>
+              <div class="form-group">
+                <label >Sexe</label>
+                  {{ form.gender }}
 
-                    </form>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">Addresse</label>
+                <textarea id="inputDescription" class="form-control" rows="4" name="address"></textarea>
+              </div>
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <div class="col-md-6">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Information Classe </h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label f>Classe</label>
+                {{form.school_class}}
+              </div>
+
+
+            <!-- /.card-body -->
+          </div>
+            <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Autre information sur éléve</h3>
+
+              <div class="card-tools">
+
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label >Numero Eléve</label>
+                {{ form.student_num}}
+              </div>
+                 <div class="form-group">
+                <label >Photo</label>
+                {{ form.profile_pic }}
+              </div>
+              <div class="form-group">
+                <label >Mot de pass </label>
+                {{ form.password }}
+                </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+          <!-- /.card -->
+        </div>
+
+      </div>
+
+
+      </div>
+                               <div class="row">
+        <div class="col-12">
+          <!-- /<a href="#" class="btn btn-secondary">Cancel</a> -->
+          <input type="submit" value="Créer nouveau Eleve" class="btn btn-success float-right">
+        </div>
+      </div>
+        </form>
+    </section>
+
+
 
 
 
