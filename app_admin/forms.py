@@ -91,7 +91,35 @@ class CourseForm(FormSettings):
 
     class Meta:
         model = Course
-        fields = ['name','school_class','staff']
+        fields = ['name',]
+
+
+class ParticipationForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ParticipationForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Participation
+        fields = ['staff','course','period','school_class']
+
+    staff = forms.ModelMultipleChoiceField(
+        queryset=Staff.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    course = forms.ModelMultipleChoiceField(
+        queryset=Course.objects.all(),
+        widget=forms.CheckboxSelectMultiple(attrs={'class':'form-check-label'})
+    )
+    period = forms.ModelMultipleChoiceField(
+        queryset=Period.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    school_class = forms.ModelMultipleChoiceField(
+        queryset=SchoolClass.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
 
 
 class SchoolClassForm(FormSettings):

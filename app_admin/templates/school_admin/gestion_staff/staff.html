@@ -133,7 +133,7 @@
                     <!-- your steps content here -->
 
                          <section class="content">
-                            <form method="post" enctype="multipart/form-data">
+                            <form method="post" name="course_staff[]"  enctype="multipart/form-data" multiple="true">
                       {% csrf_token %}
       <div class="row">
         <div class="col-md-6">

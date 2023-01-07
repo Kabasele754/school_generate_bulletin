@@ -75,7 +75,12 @@ class SchoolClass(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.class_name) + str(self.class_num)
+        return str(self.class_name)
+
+    def student_cls(self):
+        sch_cls = SchoolClass.objects.all()
+        stud = sch_cls.student_set()
+        return stud.count()
 
 
 class Admin(models.Model):
@@ -104,11 +109,12 @@ class Course(models.Model):
     name = models.CharField(max_length=120)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING, null=True, blank=False)
-    school_class = models.ForeignKey(SchoolClass, on_delete=models.DO_NOTHING)
+    #staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING, null=True, blank=False)
+    #school_class = models.ForeignKey(SchoolClass, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.name
+        return f"({self.name})"
+
 
 
 class Message(models.Model):
@@ -116,7 +122,6 @@ class Message(models.Model):
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
     subject = models.CharField(max_length=100)
     content = models.TextField()
-
     # file = models.FileField(upload_to='message/')
 
     def __str__(self):

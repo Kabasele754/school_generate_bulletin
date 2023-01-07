@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ school_class.class_name }}</h1>
+            <h1>{{ school_class.class_name }} </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -42,38 +42,18 @@
               <!-- /.card-header -->
               <div class="card-body">
 
-<form role="form" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-        <div class="row">
-        {% for field in form  %}
-            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-            {{field.errors}}
-               <br>
-                {% if not labels_uppercase %}{{ field.label|safe }}{% else %}{{ field.label|safe|upper }}{% endif %}{% if field.field.required %}{% endif %}
-<!--                {{field.label_tag}}-->
-              <p></p>
-                {{field}}
-
-                </div>
-
-        {% endfor %}
-        </div>
-
-
-    <!-- /.card-body -->
-<br><br>
-    <div class="card-footer">
-        <button type="submit" class="btn btn-primary btn-block">
-            {% if button_text %}
-            {{button_text}}
-            {% else %}
-            Edit {{school_class.class_name }}
-            {% endif %}
-
-        </button>
-    </div>
-</form>
-              </div>
+  <form method="post">
+                      {% csrf_token %}
+                          <div class="form-group">
+                         <label>Nom de la classe</label>
+                         {{  form.class_name }}
+                          </div>
+                          <div class="form-group">
+                         <label>Numero de la classe</label>
+                         {{  form.as_p }}
+                          </div>
+                         <input class="form-control btn btn-success float-right" type="submit" value="Enregistrer">
+                    </form>              </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

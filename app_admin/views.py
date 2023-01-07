@@ -7,7 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import (HttpResponse, HttpResponseRedirect,
                               get_object_or_404, redirect, render)
 from django.templatetags.static import static
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import UpdateView
 
@@ -78,6 +78,40 @@ class SchoolYearView(View):
                 context['form'] = form
         return render(request, self.template_name, context)
 
+def edit_school_year(request, sch_year_id):
+    sch_year_id = int(sch_year_id)
+    try:
+        sch_year = SchoolYear.objects.get(id = sch_year_id)
+
+    except SchoolYear.DoesNotExist:
+        messages.error(request, "Key Not Exist")
+        return redirect('book')
+    form = SchoolYearForm(request.POST or None, instance=sch_year)
+    context = {
+        'form': form,
+        'sch_year': sch_year,
+        'page_title': 'Edit School year'
+    }
+    if request.method == 'POST':
+        if form.is_valid():
+            start_year = form.cleaned_data.get('start_year')
+            end_year = form.cleaned_data.get('end_year')
+            # school_class = form.cleaned_data.get('school_class')
+            # staff = form.cleaned_data.get('staff')
+            try:
+                school = SchoolYear.objects.get(id=sch_year_id)
+                school.start_year = start_year
+                school.end_year = end_year
+                # course.school_class = school_class
+                # course.staff = staff
+                school.save()
+                messages.success(request, "Successfully Updated")
+            except:
+                messages.error(request, "Could Not Update")
+        else:
+            messages.error(request, "Could Not Update")
+
+    return render(request, 'school_admin/gestion_school/edit_school.html', context)
 # add period function
 class PeriodView(View):
     model = Period
@@ -218,6 +252,14 @@ def edit_student(request, student_id):
         messages.error(request, "Key Not Exist")
         return redirect('student')
     form = StudentForm(request.POST or None, instance=student)
+    #cour_student = []
+
+    #for sud in student:
+    cour_student = student.school_class.course_set.all()
+    cote_student = student.cotation_set.all()
+
+    print("svp can I see course student", cour_student)
+    print("svp can I see cotation student", cote_student)
     context = {
         'form': form,
         'student': student,
@@ -263,41 +305,45 @@ def edit_student(request, student_id):
     else:
         return render(request, "school_admin/gestion_student/edit_student.html", context)
 
+
 # detail student
-def detail_student(request, cote_id):
-    cote_id = int(cote_id)
+def detail_student(request, student_id):
+    student_id = int(student_id)
     try:
-        cotes = Cotation.objects.get(id=cote_id)
-    except Cotation.DoesNotExist:
+        student = Student.objects.get(id=student_id)
+    except Student.DoesNotExist:
         messages.error(request, "Key Not Exist")
-        return redirect('student_cote')
-    form = StudentForm(request.POST or None, instance=cotes)
+        return redirect('student')
+    form = StudentForm(request.POST or None, instance=student)
+    # cour_student = []
+
+    # for sud in student:
+    cour_student = student.school_class.course_set.all()
+    cote_student = student.cotation_set.all()
+
+    print("svp can I see course student", cour_student)
+    print("svp can I see cotation student", cote_student)
     context = {
         'form': form,
-        'cotes': cotes,
-        'page_title': 'Edit Student'
+        'student': student,
+        'cote_student': cote_student
     }
-    if request.method == 'POST':
-        if form.is_valid():
-            first_name = form.cleaned_data.get('first_name')
-            last_name = form.cleaned_data.get('last_name')
-            address = form.cleaned_data.get('address')
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            gender = form.cleaned_data.get('gender')
-            password = form.cleaned_data.get('password') or None
-            school_class = form.cleaned_data.get('school_class')
-            student_num = form.cleaned_data.get('student_num')
-            passport = request.FILES.get('profile_pic') or None
 
-        else:
-            messages.error(request, "Please Fill Form Properly!")
-    else:
-        return render(request, "school_admin/gestion_student/edit_student.html", context)
+    return render(request, "school_admin/gestion_student/cote_bulletin_student.html", context)
 
 # generate
 def generate_bulletin(request):
-    return render(request, )
+    context = {}
+    # course class
+    all_class = SchoolClass.objects.all()
+
+    all_student_by_class = all_class.student_set.all()
+
+    course_cl = all_student_by_class.course_set.all()
+
+    # student course
+    context['course_cl'] = course_cl
+    return render(request, "school_admin/gestion_class/generate_bulletin.html", context)
 
 class CotationStudentView(View):
     model = Cotation
@@ -496,11 +542,34 @@ def edit_staff(request, staff_id):
         staff = Staff.objects.get(id=user.id)
         return render(request, "school_admin/gestion_staff/edit_staff.html", context)
 
+class AffecterCoursView(CreateView):
+    model = Participation
+    form_class = ParticipationForm
+    template_name = 'school_admin/gestion_staff/staff_course.html'
+    success_url = reverse_lazy('affecter')
 
-class AffecterCoursView(View):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        participation = self.model.objects.all()
+        context['participate'] = participation
+        print("Voir les participation",participation )
+        return context
+
+
+class AffecterCoursUpdateView(UpdateView):
+    # specify the model you want to use
+    model = Participation
+    form_class = ParticipationForm
+    template_name = 'school_admin/gestion_staff/edit_affecter.html'
+    success_url = reverse_lazy('affecter')
+
+
+
+
+class AffecterfCoursView(View):
     model = Staff
     template_name = "school_admin/gestion_staff/staff_course.html"
-    form_class = CourseForm
+    form_class = ParticipationForm
 
     def get(self, request, *args, **kwargs):
         form = self.form_class
@@ -512,9 +581,10 @@ class AffecterCoursView(View):
         return render(request, self.template_name, {'form': form, 'cours': cours,'staff':staff})
 
     def post(self, request):
-        book_form = CourseForm(request.POST or None, request.FILES or None)
+        book_form = self.form_class(request.POST or None, request.FILES or None)
         context = {'form': book_form}
         if request.method == 'POST':
+
             if book_form.is_valid():
 
                 name = book_form.cleaned_data.get('name')
@@ -587,11 +657,14 @@ def edit_class(request, class_id):
     except SchoolClass.DoesNotExist:
         messages.error(request, "Key Not Exist")
         return redirect('school_class')
+    school_class_student = school_class.student_set.all().count()
+    #school_class_course = school_class.course_set.all().count()
     form = SchoolClassForm(request.POST or None, instance=school_class)
     context = {
         'form': form,
         'school_class': school_class,
-        'page_title': 'Edit  Classe'
+        'school_class_student': school_class_student,
+        'school_class_course': "school_class_course"
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -633,14 +706,15 @@ class CourseView(View):
             if book_form.is_valid():
 
                 name = book_form.cleaned_data.get('name')
-                school_class = book_form.cleaned_data.get('school_class')
-                staff = book_form.cleaned_data.get('staff')
+                #school_class = book_form.cleaned_data.get('school_class')
+                #staff = book_form.cleaned_data.get('staff')
 
                 # try:
                 course = Course.objects.create(
-                    name=name,school_class=school_class,
-                    staff=staff
+                    name=name,
                 )
+                # school_class = school_class,
+                # staff = staff
 
                 course.save()
                 messages.success(request, f"Cours add succefuly")
@@ -672,13 +746,13 @@ def edit_course(request, course_id):
     if request.method == 'POST':
         if form.is_valid():
             name = form.cleaned_data.get('name')
-            school_class = form.cleaned_data.get('school_class')
-            staff = form.cleaned_data.get('staff')
+            # school_class = form.cleaned_data.get('school_class')
+            # staff = form.cleaned_data.get('staff')
             try:
                 course = Course.objects.get(id=course_id)
                 course.name = name
-                course.school_class = school_class
-                course.staff = staff
+                # course.school_class = school_class
+                # course.staff = staff
                 course.save()
                 messages.success(request, "Successfully Updated")
             except:
@@ -1034,7 +1108,6 @@ def create_mail_view(request, *args, **kwargs):
         template = 'manager_op/send.html'
         context = {'date': datetime.datetime.today().date,
                    'email': email,
-
                    }
         receivers = [email, ]
         print(" Voir", email)
@@ -1051,6 +1124,7 @@ def create_mail_view(request, *args, **kwargs):
         print("ou est manager stp", admin_id)
         all_staff = Staff.objects.all()
         for c in all_staff:
+
             # nous comparons si l'addresse email get recuperer sur l'input hmtl
             # si cet egal a l'email de la table client
             if c.admin.email == email:

@@ -120,8 +120,21 @@
                     <!-- your steps content here -->
                      <form method="post">
                       {% csrf_token %}
-                         {{  form.as_p }}
-                         <input type="submit" value="Enregistrer">
+                          <div class="form-group">
+                         <label>Nom de la periode</label>
+                         {{  form.period_name }}
+                          </div>
+                         <div class="form-group">
+                         <label>Numero periode</label>
+                         {{  form.period_num }}
+                          </div>
+                         <div class="form-group">
+                         <label>Selectionez une année scolaire</label>
+                         {{  form.year_school }}
+                          </div>
+                         <div class="form-group">
+                         <input class="form-control btn btn-success float-right" type="submit" value="Enregistrer">
+                         </div>
                     </form>
 
 

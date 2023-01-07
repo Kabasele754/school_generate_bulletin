@@ -44,10 +44,8 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Nom Cours</th>
-                    <th>Nom classe</th>
-                    <th>Numero Classe</th>
-                    <th>Enseignant</th>
+                    <th class="text-center">Nom Cours</th>
+
                     <th class="text-center">Action</th>
                   </tr>
                   </thead>
@@ -56,24 +54,12 @@
                   <tr>
 
                     <td>{{cours.name }}</td>
-                    <td>{{cours.school_class.class_name }} </td>
-                    <td>{{cours.school_class.class_num }}</td>
-                    <td><a class="btn btn-info btn-sm" href="{% url 'edit_staff' cours.id %}">{{ cours.staff }}</a></td>
+
                      <td class="project-actions text-center">
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
                           <a class="btn btn-info btn-sm" href="{% url 'edit_course' cours.id %}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Archiver
                           </a>
                       </td>
 
@@ -82,10 +68,8 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Nom Cours</th>
-                    <th>Nom classe</th>
-                    <th>Numero Classe</th>
-                     <th>Enseignant</th>
+                    <th class="text-center">Nom Cours</th>
+
                     <th class="text-center">Action</th>
 
                   </tr>
@@ -124,8 +108,13 @@
                     <!-- your steps content here -->
                      <form method="post">
                       {% csrf_token %}
-                         {{  form.as_p }}
-                         <input type="submit" value="Enregistrer">
+                          <div class="form-group">
+                         <label>Nom du cours</label>
+                              {{  form.name }}
+                          </div>
+                          <div class="form-group">
+                         <input class="form-control btn btn-success float-right" type="submit" value="Enregistrer">
+                          </div>
                     </form>
 
 

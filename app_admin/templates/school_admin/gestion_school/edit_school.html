@@ -44,18 +44,14 @@
 
  <form method="post">
                       {% csrf_token %}
-                          <div class="form-group">
-                         <label>Nom de la periode</label>
-                         {{  form.period_name }}
-                          </div>
                          <div class="form-group">
-                         <label>Numero periode</label>
-                         {{  form.period_num }}
-                          </div>
+                             <label>Année de debut</label>
+                         {{  form.start_year }}
+                         </div>
                          <div class="form-group">
-                         <label>Selectionez une année scolaire</label>
-                         {{  form.year_school }}
-                          </div>
+                             <label>Année de cloture</label>
+                         {{  form.end_year }}
+                         </div>
                          <div class="form-group">
                          <input class="form-control btn btn-success float-right" type="submit" value="Enregistrer">
                          </div>

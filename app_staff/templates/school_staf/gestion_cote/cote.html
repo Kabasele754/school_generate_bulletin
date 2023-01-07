@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Liste de cote des éleves</h1>
+            <h1>Liste de cote des éleves </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -47,7 +47,6 @@
                   <tr>
                     <th>Eleve</th>
                     <th>Nom classe</th>
-                    <th>Numero Classe</th>
                     <th>Cours</th>
                     <th>Periode</th>
                     <th>Cote</th>
@@ -55,23 +54,24 @@
                   </tr>
                   </thead>
                   <tbody>
-                  {% for cours in cote_student %}
-                  {% for c in cours %}
+                  {% for cours in cours_cotation %}
+
                   <tr>
 
                     <td>
-                     {{ c.student }}
+                       {{ cours.student }}
                     </td>
-                    <td>{{ staff_course.school_class.class_name }}</td>
-                    <td>{{ staff_course.school_class.class_num }}</td>
-                    <td>{{ staff_course }}</td>
+                      {% for cls in class %}
+                    <td>{{ cls }}</td>
+                      {% endfor %}
+                    <td>{{ cours.course }}</td>
 
                     <td>
-                      {{ c.period.period_name }}
+                      {{ cours.period }}
                     </td>
                     <td>
 
-                     {{c.note }}
+                     {{ cours.note }}
 
                     </td>
                     <td>
@@ -79,7 +79,7 @@
                     </td>
 
                   </tr>
-                  {% endfor %}
+
                    {% endfor %}
 
                   </tbody>
@@ -87,7 +87,6 @@
                   <tr>
                     <th>Eleve</th>
                     <th>Nom classe</th>
-                    <th>Numero Classe</th>
                     <th>Cours</th>
                     <th>Periode</th>
 
@@ -113,7 +112,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Formulaire d'enregistrement</h4>
+              <h4 class="modal-title">Formulaire de la cotation </h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -125,23 +124,25 @@
 <!--              <div class="card-header">-->
 <!--                <h3 class="card-title">Formulaire d'enregistrement</h3>-->
 <!--              </div>-->
-
+<!-- your steps content here -->
               <div class="card-body p-3">
 
-                    <!-- your steps content here -->
+
                      <form method="post">
                       {% csrf_token %}
-                       <label>Eleve</label>
+                          <div class="form-group">
+                       <label>Eleves</label>
                        <select class="form-control" name="student">
-                         {% for student in student_by_class %}
-                         <option value="{{ student.id }}">
-                           {{ student.admin.last_name }}
+                         {% for stud in student %}
+                         <option value="{{ stud.id }}">
+                           {{ stud }}
                          </option>
                           {% endfor %}
 
                        </select>
+                          </div>
+                         <div class="form-group">
                        <label>Periode</label>
-
                        <select class="form-control"  name="period">
                          {% for period in periods %}
                          <option value="{{period.id}}">
@@ -149,11 +150,28 @@
                          </option>
                           {% endfor %}
                        </select>
+                         </div>
+                         <div class="form-group">
+                         <label>Cours</label>
+
+                       <select class="form-control"  name="course">
+                         {% for course in course_list %}
+
+                         <option value="{{ course.id }}">
+                           {{ course }}
+                         </option>
+                          {% endfor %}
+                       </select>
+                          </div>
+                          <div class="form-group">
                        <label>Note</label>
                        <input class="form-control" type="text" name="note">
+                          </div>
+                          <div class="form-group">
 
-                         <input type="submit" value="Enregistrer">
-                    </form>
+                         <input class="btn btn-success float-right" type="submit" value="Enregistrer">
+                          </div>
+                     </form>
 
 
 

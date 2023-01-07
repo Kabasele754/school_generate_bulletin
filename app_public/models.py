@@ -15,9 +15,10 @@ class Category(models.Model):
 
 class ArticleBlog(models.Model):
     choice_etat = (
-        ('publised', 'PUBLISHED'),
-        ('draft', 'DRAFT')
+        ('slider', 'Slider'),
+        ('event', 'Event')
     )
+
 
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/')
@@ -26,7 +27,6 @@ class ArticleBlog(models.Model):
     published = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    type_article_slid = models.BooleanField(default=False)
     status = models.CharField(choices=choice_etat, max_length=50)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     # user tag pip install django-taggit

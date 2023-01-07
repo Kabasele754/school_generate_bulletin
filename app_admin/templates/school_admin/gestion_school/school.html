@@ -60,21 +60,13 @@
 
 
                       <td class="project-actions text-center">
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="{% url 'edit_class' all_year.id %}">
+
+                          <a class="btn btn-info btn-sm" href="{% url 'year_update' all_year.id %}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Archiver
-                          </a>
+
                       </td>
 
 
@@ -125,8 +117,17 @@
                     <!-- your steps content here -->
                      <form method="post">
                       {% csrf_token %}
-                         {{  form.as_p }}
-                         <input type="submit" value="Enregistrer">
+                         <div class="form-group">
+                             <label>Année de debut</label>
+                         {{  form.start_year }}
+                         </div>
+                         <div class="form-group">
+                             <label>Année de cloture</label>
+                         {{  form.end_year }}
+                         </div>
+                         <div class="form-group">
+                         <input class="form-control btn btn-success float-right" type="submit" value="Enregistrer">
+                         </div>
                     </form>
 
 

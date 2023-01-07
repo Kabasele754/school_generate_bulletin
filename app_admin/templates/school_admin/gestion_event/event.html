@@ -48,7 +48,6 @@
                     <th>Categorie</th>
                     <th>Publishé</th>
                       <th>Etat</th>
-                    <th>Image Slider</th>
                     <th>Image</th>
                     <th>Action</th>
                   </tr>
@@ -61,7 +60,7 @@
                     </td>
                     <td>{{ blog.published }}</td>
                     <td> {{ blog.status }}</td>
-                    <td> {{ blog.type_article_slid }}</td>
+
                     <td>
 
                         <img alt="Image" width="50px" height="25px" class="table-avatar" src="{{ blog.image.url }}">
@@ -96,7 +95,6 @@
                     <th>Categorie</th>
                     <th>publishé</th>
                        <th>Etat</th>
-                       <th>Image Slider</th>
                     <th>Image</th>
                     <th>Action</th>
 
@@ -141,12 +139,14 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-6">
             {{field.errors}}
                <br>
+                <div class="form-group">
                 {% if not labels_uppercase %}{{ field.label|safe }}{% else %}{{ field.label|safe|upper }}{% endif %}{% if field.field.required %}{% endif %}
 <!--                {{field.label_tag}}-->
               <p></p>
                 {{field}}
 
                 </div>
+            </div>
 
         {% endfor %}
         </div>
@@ -155,15 +155,17 @@
     <!-- /.card-body -->
 <br><br>
     <div class="card-footer">
-        <button type="submit" class="btn btn-primary btn-block">
+        <div class="form-group">
+        <button type="submit" class=" form-control btn btn-success btn-block">
             {% if button_text %}
             {{button_text}}
             {% else %}
-            Edit {{course.name}}
+            Enregistre
             {% endif %}
 
         </button>
-    </div>
+        </div>
+        </div>
 </form>
 
 
