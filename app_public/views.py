@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
+from django.views import View
 from django.views.generic import TemplateView, DetailView
 from .models import *
 from app_admin.forms import *
@@ -31,7 +32,7 @@ class EventView(TemplateView):
 
 class EventDetailView(DetailView):
     model = ArticleBlog
-    template_name = "school_public//event_detail.html"
+    template_name = "school_public/event_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -86,3 +87,38 @@ class EventDetailView(DetailView):
 
             return self.render_to_response(context=context)
 
+
+class ContactView(View):
+    model = Contact
+    # template_name = "hotel/contact.html"
+    success_msg = 'Contact created.'
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        context['form'] = ContactForm()
+        return render(request, "school_public/contact.html", context)
+
+    # create a post for show one and to make a comment
+    def post(self, request, *args, **kwargs):
+        form = ContactForm(request.POST)
+        context = {}
+
+        context['form'] = form
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            subject = form.cleaned_data['subject']
+            phone = form.cleaned_data['phone']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+
+            contact = Contact.objects.create(
+                name=name, phone=phone, subject=subject, email=email, message=message, )
+            contact.save()
+            messages.success(request, f"{name} Votre message a été envoyer avec succé")
+
+            form = ContactForm()
+            context['form'] = form
+            # return render(request, "hotel/contact.html", context=context)
+
+        return render(request, "school_public/contact.html", context=context)
