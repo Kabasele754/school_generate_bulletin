@@ -198,3 +198,18 @@ class ArticleForm(FormSettings):
                 attrs={'class': 'form-control', 'placeholder': 'Copy the title with no space and a hyphen in between'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Content of the Blog'}),
         }
+
+class ContactForm(forms.ModelForm):
+    # number = PhoneNumberField(region="CA")
+    class Meta:
+        model = Contact
+        fields = ('name', 'phone', 'email', 'subject', 'message')
+
+        # widgets = {
+        #     'phone': PhoneNumberPrefixWidget(),
+        # }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'email', 'content')

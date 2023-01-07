@@ -14,6 +14,10 @@
 <link rel="stylesheet" type="text/css" href="{% static 'public_style/plugins/OwlCarousel2-2.2.1/animate.css'%}">
 <link rel="stylesheet" type="text/css" href="{% static 'public_style/styles/main_styles.css'%}">
 <link rel="stylesheet" type="text/css" href="{% static 'public_style/styles/responsive.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'public_style/styles/news_styles.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'public_style/styles/news_responsive.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'public_style/styles/news_post_styles.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'public_style/styles/news_post_responsive.css'%}">
 </head>
 <body>
 
@@ -44,6 +48,25 @@
 <script src="{% static 'public_style/plugins/scrollTo/jquery.scrollTo.min.js'%}"></script>
 <script src="{% static 'public_style/plugins/easing/easing.js'%}"></script>
 <script src="{% static 'public_style/js/custom.js'%}"></script>
+<script src="{% static 'public_style/js/news_custom.js'%}"></script>
+<script src="{% static 'public_style/js/news_post_custom.js'%}"></script>
+
+{% for message in messages  %}
+                {% if message.tags == 'success' %}
+                     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+                     <script>
+                         var m = "{{ message }}";
+                         swal("Perfet !", m,"success")
+                     </script>
+
+                  {% else %}
+                     <script>
+                         var m = "{{ message }}";
+                         swal("Erreur !", m,"error")
+                     </script>
+                    {% endif %}
+                {% endfor %}
 
 </body>
 </html>

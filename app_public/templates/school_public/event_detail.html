@@ -1,0 +1,166 @@
+{% extends 'public_school/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Home -->
+
+	<div class="home">
+		<div class="home_background_container prlx_parent">
+			<div class="home_background prlx" style="background-image:url(images/news_background.jpg)"></div>
+		</div>
+		<div class="home_content">
+			<h1>Des nouveaux evenement</h1>
+		</div>
+	</div>
+
+	<!-- News -->
+
+	<div class="news">
+		<div class="container">
+			<div class="row">
+
+				<!-- News Post Column -->
+
+				<div class="col-lg-8">
+
+					<div class="news_post_container">
+						<!-- News Post -->
+						<div class="news_post">
+							<div class="news_post_image">
+								<img src="{{ post.image.url }}" alt="https://unsplash.com/@dsmacinnes">
+							</div>
+							<div class="news_post_top d-flex flex-column flex-sm-row">
+								<div class="news_post_date_container">
+									<div class="news_post_date d-flex flex-column align-items-center justify-content-center">
+										<div>{{ post.updated|date:'d'}}</div>
+										<div>{{ post.updated|date:'m-Y'}}</div>
+									</div>
+								</div>
+								<div class="news_post_title_container">
+									<div class="news_post_title">
+										<a href="news_post.html">{{ post.title }}</a>
+									</div>
+									<div class="news_post_meta">
+										<span class="news_post_author"><a href="#">Par {{ post.admin }}</a></span>
+										<span>|</span>
+										<span class="news_post_comments"><a href="#">{{ comments_count }} Comments</a></span>
+									</div>
+								</div>
+							</div>
+							<div class="news_post_text">
+								{{ post.description }}
+							</div>
+
+						</div>
+
+					</div>
+
+					<!-- Comments -->
+					<div class="news_post_comments">
+						<div class="comments_title">Comments</div>
+						<ul class="comments_list">
+
+							<!-- Comment -->
+							{% for comment in comments%}
+							<li class="comment">
+								<div class="comment_container d-flex flex-row">
+									<div>
+										<div class="comment_image">
+											<img src="{% static 'public_style/images/user.png' %}" alt="">
+										</div>
+									</div>
+									<div class="comment_content">
+										<div class="comment_meta">
+											<span class="comment_name"><a href="#">{{ comment.name }}h</a></span>
+											<span class="comment_separator">|</span>
+											<span class="comment_date">{{ comment.created }}</span>
+											<span class="comment_separator">|</span>
+											<span class="comment_reply_link"><a href="#">Reply</a></span>
+										</div>
+										<p class="comment_text"> {{ comment.content }} </p>
+									</div>
+								</div>
+							</li>
+							<hr>
+							{% endfor %}
+							<hr>
+
+
+
+						</ul>
+
+					</div>
+
+					<!-- Leave Comment -->
+
+					<div class="leave_comment">
+						<div class="leave_comment_title">Leave a comment</div>
+
+						<div class="leave_comment_form_container">
+							<form method="post">
+								{% csrf_token %}
+								<input name="name" id="comment_form_name" class="input_field contact_form_name" type="text" placeholder="Name" required="required" data-error="Name is required.">
+								<input name="email" id="comment_form_email" class="input_field contact_form_email" type="email" placeholder="E-mail" required="required" data-error="Valid email is required.">
+								<textarea  id="comment_form_message" class="text_field contact_form_message" name="content" placeholder="Message" required="required" data-error="Please, write us a message."></textarea>
+								<button id="comment_send_btn" type="submit" class="comment_send_btn trans_200" value="Submit">Ajouter un commentaire</button>
+							</form>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- Sidebar Column -->
+
+				<div class="col-lg-4">
+					<div class="sidebar">
+
+						<!-- Archives -->
+						<div class="sidebar_section">
+							<div class="sidebar_section_title">
+								<h3>Archivers</h3>
+							</div>
+							<ul class="sidebar_list">
+
+								<li class="sidebar_list_item"><a href="#">Poste Archiver</a></li>
+							</ul>
+						</div>
+
+						<!-- Latest Posts -->
+
+						<div class="sidebar_section">
+							<div class="sidebar_section_title">
+								<h3>Derniere publicatiob</h3>
+							</div>
+
+							<div class="latest_posts">
+
+
+
+								<!-- Latest Post -->
+								{% for recent in recent_blogs %}
+								<div class="latest_post">
+									<div class="latest_post_image">
+										<img src="{{recent.image.url}}" alt="https://unsplash.com/@element5digital">
+									</div>
+									<div class="latest_post_title"><a href="news_post.html">{{ recent.title }}</a></div>
+									<div class="latest_post_meta">
+										<span class="latest_post_author"><a href="#">Par {{ recent.admin }}</a></span>
+										<span>|</span>
+										<span class="latest_post_comments"><a href="#">3 Comments</a></span>
+									</div>
+								</div>
+								{% endfor %}
+
+							</div>
+
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

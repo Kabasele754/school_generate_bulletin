@@ -1,10 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'public_school/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+
+<!-- Home -->
+
+	<div class="home">
+		<div class="home_background_container prlx_parent">
+			<div class="home_background prlx" style="background-image:url(images/news_background.jpg)"></div>
+		</div>
+		<div class="home_content">
+			<h1>Des nouveaux evenement</h1>
+		</div>
+	</div>
+
+	<!-- News -->
+
+	<div class="news">
+		<div class="container">
+			<div class="row">
+
+				<!-- News Column -->
+
+				<div class="col-lg-8">
+
+					<div class="news_posts">
+						<!-- News Post -->
+						{% for event in all_evennt %}
+						<div class="news_post">
+							<div class="news_post_image">
+								<img src="{{ event.image.url }}" alt="https://unsplash.com/@dsmacinnes">
+							</div>
+							<div class="news_post_top d-flex flex-column flex-sm-row">
+								<div class="news_post_date_container">
+									<div class="news_post_date d-flex flex-column align-items-center justify-content-center">
+										<div>{{ event.updated|date:'d'}}</div>
+										<div>{{ event.updated|date:'m-Y'}}</div>
+									</div>
+								</div>
+								<div class="news_post_title_container">
+									<div class="news_post_title">
+										<a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
+									</div>
+									<div class="news_post_meta">
+										<span class="news_post_author"><a href="#">publié par {{ event.admin }}</a></span>
+										<span>|</span>
+										<span class="news_post_comments"><a href="#">3 Comments</a></span>
+									</div>
+								</div>
+							</div>
+							<div class="news_post_text">
+								<p>{{ event.description }}</p>
+							</div>
+							<div class="news_post_button text-center trans_200">
+								<a href="{% url 'event_detail' event.id %}">Voir plus</a>
+							</div>
+						</div>
+						{% endfor %}
+
+					</div>
+
+
+					<!-- Page Nav -->
+
+					<div class="news_page_nav">
+						<ul>
+							<li class="active text-center trans_200"><a href="#">01</a></li>
+							<li class="text-center trans_200"><a href="#">02</a></li>
+							<li class="text-center trans_200"><a href="#">03</a></li>
+						</ul>
+					</div>
+
+				</div>
+
+
+				<!-- Sidebar Column -->
+
+				<div class="col-lg-4">
+					<div class="sidebar">
+
+						<!-- Archives -->
+						<div class="sidebar_section">
+							<div class="sidebar_section_title">
+								<h3>Archivers</h3>
+							</div>
+							<ul class="sidebar_list">
+
+								<li class="sidebar_list_item"><a href="#">Evenement archiver</a></li>
+							</ul>
+						</div>
+
+						<!-- Latest Posts -->
+
+						<div class="sidebar_section">
+							<div class="sidebar_section_title">
+								<h3>Derniere publication</h3>
+							</div>
+
+							<div class="latest_posts">
+
+								<!-- Latest Post -->
+								{% for recent in recent_blogs %}
+								<div class="latest_post">
+									<div class="latest_post_image">
+										<img src="{{recent.image.url}}" alt="https://unsplash.com/@element5digital">
+									</div>
+									<div class="latest_post_title"><a href="news_post.html">{{ recent.title }}</a></div>
+									<div class="latest_post_meta">
+										<span class="latest_post_author"><a href="#">Par {{ recent.admin }}</a></span>
+										<span>|</span>
+										<span class="latest_post_comments"><a href="#">3 Comments</a></span>
+									</div>
+								</div>
+								{% endfor %}
+
+
+							</div>
+
+						</div>
+
+						<!-- Tags -->
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

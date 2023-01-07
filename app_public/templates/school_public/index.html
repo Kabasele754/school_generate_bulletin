@@ -101,7 +101,7 @@
 
 							<div class="col-lg-6 order-lg-2 order-3">
 								<div class="event_content">
-									<div class="event_name"><a class="trans_200" href="#">{{ event.title }}</a></div>
+									<div class="event_name"><a class="trans_200" href="{% url 'event_detail' event.id %}">{{ event.title }}</a></div>
 									<div class="event_location">{{ event.category }}</div>
 									<p>{{ event.description }}</p>
 								</div>
