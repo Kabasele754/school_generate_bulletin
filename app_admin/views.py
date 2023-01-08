@@ -545,6 +545,7 @@ def edit_staff(request, staff_id):
 class AffecterCoursView(CreateView):
     model = Participation
     form_class = ParticipationForm
+    success_msg = 'Contact created.'
     template_name = 'school_admin/gestion_staff/staff_course.html'
     success_url = reverse_lazy('affecter')
 
@@ -555,13 +556,23 @@ class AffecterCoursView(CreateView):
         print("Voir les participation",participation )
         return context
 
+    def form_valid(self, form):
+
+        messages.success(self.request, "The affectation was created successfully.")
+        return super(AffecterCoursView, self).form_valid(form)
+
 
 class AffecterCoursUpdateView(UpdateView):
     # specify the model you want to use
     model = Participation
     form_class = ParticipationForm
+    success_msg = 'Contact created.'
     template_name = 'school_admin/gestion_staff/edit_affecter.html'
     success_url = reverse_lazy('affecter')
+
+    def form_valid(self, form):
+        messages.success(self.request, "The affectation was update successfully.")
+        return super(AffecterCoursUpdateView, self).form_valid(form)
 
 
 
