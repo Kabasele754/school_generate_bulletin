@@ -1,10 +1,16 @@
 from django.db import models
 from app_admin.models import *
+import uuid
 
 # Create your models here.
 
 
 class Participation(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     #name = models.CharField(max_length=120)
     staff = models.ManyToManyField(Staff)
     course = models.ManyToManyField(Course)
@@ -38,6 +44,11 @@ class Participation(models.Model):
 
 # cote
 class Cotation(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING)
     course = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
     student = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
@@ -51,6 +62,7 @@ class Cotation(models.Model):
 
 
 class Comportement(models.Model):
+    
 
     CONDUITE_TYPE = [("impoli", "Impoli"), ("poli", "Poli")]
     DECITION_TYPE = [("passe", "Passe"), ("echouer", "Echouer")]

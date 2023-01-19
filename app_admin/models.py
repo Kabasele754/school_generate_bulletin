@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import uuid
 
 
 class CustomUserManager(UserManager):
@@ -31,6 +32,11 @@ class CustomUserManager(UserManager):
 class User(AbstractUser):
     USER_TYPE = ((1, "admin"), (2, "Staff"), (3, "Student"))
     GENDER = [("M", "Male"), ("F", "Female")]
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
 
     username = None  # Removed username, using email instead
     email = models.EmailField(unique=True)
@@ -50,6 +56,11 @@ class User(AbstractUser):
 
 
 class SchoolYear(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     start_year = models.DateField()
     end_year = models.DateField()
 
@@ -58,6 +69,11 @@ class SchoolYear(models.Model):
 
 
 class Period(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     period_name = models.CharField(max_length=50)
     period_num = models.IntegerField()
     year_school = models.ForeignKey(SchoolYear, on_delete=models.DO_NOTHING)
@@ -69,6 +85,11 @@ class Period(models.Model):
 
 
 class SchoolClass(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     class_name = models.CharField(max_length=25)
     class_num = models.IntegerField()
     updated_at = models.DateTimeField(auto_now=True)
@@ -84,10 +105,20 @@ class SchoolClass(models.Model):
 
 
 class Admin(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     admin = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 class Student(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     admin = models.OneToOneField(User, on_delete=models.CASCADE)
     student_num = models.IntegerField(null=True, blank=False)
     school_class = models.ForeignKey(SchoolClass, on_delete=models.DO_NOTHING,null=True, blank=False)
@@ -98,6 +129,11 @@ class Student(models.Model):
 
 class Staff(models.Model):
     ROLE = ((1, "Teacher"), (2, "Etude_Teacher"), (3, "Student"))
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     admin = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.BooleanField(default=1)
 
@@ -106,6 +142,11 @@ class Staff(models.Model):
 
 
 class Course(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     name = models.CharField(max_length=120)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -118,6 +159,11 @@ class Course(models.Model):
 
 
 class Message(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
     subject = models.CharField(max_length=100)

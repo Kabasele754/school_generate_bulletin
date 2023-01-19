@@ -39,7 +39,6 @@ class DashbordardView(TemplateView):
 
 class SchoolYearView(View):
     model = SchoolYear
-    success_msg = 'Category created.'
     form_class = SchoolYearForm
     template_name = "school_admin/gestion_school/school.html"
 
@@ -68,7 +67,7 @@ class SchoolYearView(View):
                         messages.error(request, "Ne peut etre ajouté: ")
                     else:
                         obj_school.save()
-                    messages.success(request, f"Vous avez ajouté category  avec succé")
+                    messages.success(request, f"Vous avez ajouté Année  avec succé")
                     return redirect(reverse('year'))
                 except Exception as e:
                     messages.error(request, f" ne peut etre ajouté : " + str(e))
@@ -79,7 +78,7 @@ class SchoolYearView(View):
         return render(request, self.template_name, context)
 
 def edit_school_year(request, sch_year_id):
-    sch_year_id = int(sch_year_id)
+    sch_year_id = sch_year_id
     try:
         sch_year = SchoolYear.objects.get(id = sch_year_id)
 
@@ -159,7 +158,7 @@ class PeriodView(View):
 # update category
 def edit_period(request, periode_id):
 
-    periode_id = int(periode_id)
+    periode_id = periode_id
     try:
         period_one = Period.objects.get(id=periode_id)
 
@@ -245,7 +244,7 @@ class StudentView(View):
         return render(request, self.template_name, context)
 
 def edit_student(request, student_id):
-    student_id = int(student_id)
+    student_id = student_id
     try:
         student = Student.objects.get(id=student_id)
     except Student.DoesNotExist:
@@ -308,7 +307,7 @@ def edit_student(request, student_id):
 
 # detail student
 def detail_student(request, student_id):
-    student_id = int(student_id)
+    student_id = student_id
     try:
         student = Student.objects.get(id=student_id)
     except Student.DoesNotExist:
@@ -490,7 +489,7 @@ class StaffView(View):
 
 
 def edit_staff(request, staff_id):
-    staff_id = int(staff_id)
+    staff_id = staff_id
     try:
         staff = Staff.objects.get(id=staff_id)
     except Staff.DoesNotExist:
@@ -662,7 +661,7 @@ class ClassView(View):
         return render(request, self.template_name, context)
 
 def edit_class(request, class_id):
-    class_id = int(class_id)
+    class_id = class_id
     try:
         school_class = SchoolClass.objects.get(id=class_id)
     except SchoolClass.DoesNotExist:
@@ -741,7 +740,7 @@ class CourseView(View):
 
 # function update
 def edit_course(request, course_id):
-    course_id = int(course_id)
+    course_id = course_id
     try:
         course = Course.objects.get(id = course_id)
 
@@ -976,7 +975,7 @@ class AddCategoryView(View):
 # update category
 def edit_category(request, cate_id):
 
-    cate_id = int(cate_id)
+    cate_id = cate_id
     try:
         cate_one = Category.objects.get(id=cate_id)
 
@@ -1065,7 +1064,7 @@ class AddBlogView(View):
 
 # function update blog article
 def update_article(request, article_id):
-    article_id = int(article_id)
+    article_id = article_id
     context = {}
     try:
         article_one = ArticleBlog.objects.get(id = article_id)
@@ -1089,7 +1088,7 @@ def update_article(request, article_id):
 
 # function delete blog
 def delete_blog(request, blog_id):
-    blog_id = int(blog_id)
+    blog_id = blog_id
     try:
         blog_one = ArticleBlog.objects.get(id= blog_id)
     except ArticleBlog.DoesNotExist:

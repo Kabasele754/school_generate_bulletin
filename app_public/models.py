@@ -1,11 +1,17 @@
 from django.db import models
 from django.utils import timezone
 from app_admin.models import Admin
+import uuid
 
 # Create your models here.
 
 # Model Category
 class Category(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     name = models.CharField(max_length=100, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -18,7 +24,11 @@ class ArticleBlog(models.Model):
         ('slider', 'Slider'),
         ('event', 'Event')
     )
-
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
 
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/')
@@ -41,6 +51,11 @@ class ArticleBlog(models.Model):
 # Model Comments for Article and Blog
 
 class Comment(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100)
     content = models.TextField()
@@ -65,6 +80,11 @@ class Comment(models.Model):
 # Model contact
 
 class Contact(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
 
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=50, null=False, help_text='Must be in format +(243)9999999999')
