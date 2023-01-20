@@ -10,7 +10,6 @@ import uuid
 class Bulletin(models.Model):
     CONDUITE_TYPE = [("impoli", "Impoli"), ("poli", "Poli")]
     DECITION_TYPE = [("passe", "Passe"), ("echouer", "Echouer")]
-    
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,

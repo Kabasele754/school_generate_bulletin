@@ -105,9 +105,9 @@ referrerpolicy="no-referrer">
                     <p style="font-size:10px; ">CODE : 9006613</p>
                   </td>
                   <td>
-                   <p style="font-size:10px; "> ELEVE :................................................................... SEXE:....... </p>
+                   <p style="font-size:10px; "> ELEVE :.......{{ student.admin.first_name }}   {{ student.admin.last_name }}............................................................ SEXE:...{{ student.admin.gender }}.... </p>
                     <p style="font-size:10px; ">NE(E) A :....................LE ..../.../...... </p>
-                    <p style="font-size:10px; ">CLASSE :....................................... </p>
+                    <p style="font-size:10px; ">CLASSE :................{{ student.school_class }}....................... </p>
                     <p style="font-size:10px; ">N° PERM :</p>
                   </td>
                   </tbody>
@@ -218,12 +218,12 @@ referrerpolicy="no-referrer">
                   </tr>
                   <!--  DEUXIEME ligne                -->
                   <tr >
-
-                    <td>RELIGION</td>
-                     <td >
-<!--                    <input type="number" class="form-control" placeholder="">-->
-                  </td>
-                     <td >
+                    <td>MATHEMATIQUE</td>
+                    {% for cote in stud_cote %}
+                    {% comment %} <td>{{ cote.course }}</td> {% endcomment %}
+                    <td >{{ cote.note }} </td>
+                  {% endfor %}
+                  <td >
 <!--                    <input type="number" class="form-control" >-->
                   </td>
                      <td></td>

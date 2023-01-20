@@ -2,7 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-   path("",admin_home, name="admin_home"),
+   path("",DashbordardView.as_view(), name="admin_home"),
    path("admin_view_profile", admin_view_profile,
         name='admin_view_profile'),
     # year and period

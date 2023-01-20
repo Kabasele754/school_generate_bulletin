@@ -31,7 +31,20 @@ class DashbordardView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['login'] = "Hi "
+        course = Course.objects.all().count()
+        staff = Staff.objects.all().count()
+        student = Student.objects.all().count()
+        cls_number = SchoolClass.objects.all().count()
+        # student_f = Student.objects.filter(gender="m").count()
+        # student_m = Student.objects.filter(gender="f").count()
+        print("where course", course)
+        context['course'] = course
+        context['staff'] = staff
+        context['student'] = student
+        context['cls_number'] = cls_number
+        context['student_f'] = User.objects.filter(user_type=4, gender='m').all().count()
+
+        context['student_m'] = User.objects.filter(user_type=4,gender='f').all().count()
         return context
 
 
@@ -114,7 +127,6 @@ def edit_school_year(request, sch_year_id):
 # add period function
 class PeriodView(View):
     model = Period
-    success_msg = 'Category created.'
     form_class = PeriodForm
     template_name = "school_admin/gestion_school/period.html"
 
@@ -133,12 +145,10 @@ class PeriodView(View):
         if request.method == 'POST':
             if period_form.is_valid():
                 period_name = period_form.cleaned_data.get('period_name')
-                period_num = period_form.cleaned_data.get('period_num')
                 year_school = period_form.cleaned_data.get('year_school')
                 try:
                     obj_period = Period.objects.create(
                          period_name=period_name,
-                        period_num=period_num,
                         year_school=year_school
 
                         )
@@ -174,12 +184,10 @@ def edit_period(request, periode_id):
     if request.method == 'POST':
         if period_form.is_valid():
             period_name = period_form.cleaned_data.get('period_name')
-            period_num = period_form.cleaned_data.get('period_num')
             year_school = period_form.cleaned_data.get('year_school')
             try:
                 period = Period.objects.get(id=period_one)
                 period.period_name = period_name
-                period.period_num = period_num
                 period.year_school = year_school
                 period.save()
                 messages.success(request, "Successfully Updated")
@@ -370,12 +378,18 @@ def generate_bulletin_print(request, bulletin_id):
     except Student.DoesNotExist:
         messages.error(request, "Key Not Exist")
         return redirect('generate_bulletin')
-    all_stud_by_cote = student.cotation_set.all()
-    print("Voir cote", all_stud_by_cote)
+    period = Period.objects.filter(period_name="1erep")
+    
+    #all_stud_by_cote_1 = student.cotation_set.get(period=period)
+    all_stud_by_cote_1 = student.cotation_set.all()
+    
+    print("Voir cote", all_stud_by_cote_1)
+    
+    
 
     
     context = {
-        'stud_cote': all_stud_by_cote,
+        'stud_cote': all_stud_by_cote_1,
         'student': student,
         'page_title': 'Edit Student'
     }
@@ -843,21 +857,6 @@ class BulletinView(TemplateView):
         return context
 # End gestion compose mail
 
-def admin_home(request):
-    total_staff = Staff.objects.all().count()
-    total_students = Student.objects.all().count()
-    total_course = Course.objects.all().count()
-
-
-    context = {
-        'page_title': "Administrative Dashboard",
-        'total_students': total_students,
-        'total_staff': total_staff,
-        'total_course': total_course,
-
-
-    }
-    return render(request, 'school_admin/dashboard.html', context)
 
 # function add staff
 def add_staff(request):

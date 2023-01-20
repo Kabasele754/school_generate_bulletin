@@ -69,13 +69,13 @@ class SchoolYear(models.Model):
 
 
 class Period(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
-    period_name = models.CharField(max_length=50)
-    period_num = models.IntegerField()
+    PERIOD = [("1erep", "1ere p"), ("2emep", "2ème P"),("examen1", "Examen 1"),  ("3emep", "3ème P"), ("'4emep", "4ème P"),("examen2", "Examen 2")]
+    # id = models.UUIDField(
+    #     primary_key=True,
+    #     default=uuid.uuid4,
+    #     editable=False
+    # )
+    period_name = models.CharField(max_length=50,default="1erep", choices=PERIOD)
     year_school = models.ForeignKey(SchoolYear, on_delete=models.DO_NOTHING)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
