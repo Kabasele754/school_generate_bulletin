@@ -41,7 +41,7 @@ urlpatterns = [
     path('article/category/', AddCategoryView.as_view(),name="add_category"),
     path('article/category/edit/<str:cate_id>', edit_category, name="category_edit"),
     path('list-blog/', AllBlogs.as_view(), name="list_blog"),
-    path('article/edit/<str:article_id>', update_article, name="update"),
+    path('article/<pk>/edit/', ArticleUpdateView.as_view(), name="update"),
     #path('delete/<int:book_id>', views.delete_book)
 
    # inbox
@@ -50,8 +50,8 @@ urlpatterns = [
    path('bulletin/',BulletinView.as_view(), name="bulletin"),
    
    # system config
-    path("systemconfig",SystemConfigView.as_view(), name="logo"),
-    path('systemconfig/edit/<str:logo_id>', update_logo, name="update_logo"),
+    path("systemconfig/",SystemConfigView.as_view(), name="logo"),
+    path('systemconfig/<pk>/edit/', LogoUpdateView.as_view(), name="update_logo"),
     
 
 

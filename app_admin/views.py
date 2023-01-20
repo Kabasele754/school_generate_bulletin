@@ -11,6 +11,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import UpdateView
 
+
 from .forms import *
 from .models import *
 from app_public.models import *
@@ -1100,6 +1101,23 @@ class AddBlogView(View):
         return render(request, self.template_name, context=context)
 
 # function update blog article
+class ArticleUpdateView(SuccessMessageMixin,UpdateView):
+    # specify the model you want to use
+    model = ArticleBlog
+    template_name = "school_admin/gestion_event/edit_event.html"
+ 
+    # specify the fields
+    fields = [
+        "title",
+        "description",
+        "status",
+        "category",
+        "image"
+    ]
+ 
+    success_url ="/dashboard_admin/article/"
+    success_message = "was updated successfully"
+    
 def update_article(request, article_id):
     
     article_id = article_id
@@ -1283,27 +1301,27 @@ class SystemConfigView(View):
                 messages.error(request, "Could Not Add: ")
                 context['form'] = form
         return render(request, self.template_name, context=context)
+    
+class LogoUpdateView(SuccessMessageMixin,UpdateView):
+    # specify the model you want to use
+    model = SystemConfig
+    template_name = "school_admin/system_config/edit_logo.html"
+ 
+    # specify the fields
+    fields = [
+        "logo_name",
+        "logo_image"
+    ]
+ 
+    success_url ="/dashboard_admin/systemconfig/"
+    success_message = "was updated successfully"
 
 
-def update_logo(request, logo_id):
-    logo_id = logo_id
-    context = {}
-    try:
-        logo_one = SystemConfig.objects.get(id = logo_id)
-    except SystemConfig.DoesNotExist:
-        return redirect('add_blog')
+class LogoDashbordView(TemplateView):
+    template_name = "school_admin/sidebar.html"
 
-    system_form = SystemConfigForm(request.POST,files=request.FILES, instance = logo_one)
-    context['logo_one'] = logo_one
-    context['form'] = system_form
-    if system_form.is_valid():
-        try:
-            system_form.save()
-            messages.success(request, "Successfully Updated")
-            return redirect(reverse('logo'))
-
-        except:
-            messages.error(request, "Could Not Update")
-    else:
-        messages.error(request, "Could Not Update")
-    return render(request, 'school_admin/system_config/edit_logo.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+       
+        context['logo'] = SystemConfig.objects.all().last()
+        return context
