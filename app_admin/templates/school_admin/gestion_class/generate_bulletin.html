@@ -14,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Toutes les classes</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Toutes les classes</li>
             </ol>
           </div>
         </div>
@@ -34,9 +34,9 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Liste des éléves</h3>
+                <h3 class="card-title">Classe</h3>
                 <div class="clearfix">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Classe</button>
+                {% comment %} <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Classe</button> {% endcomment %}
               </div>
               </div>
               <!-- /.card-header -->
@@ -44,37 +44,30 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Nom Classe</th>
                     <th>Numero Classe</th>
-                    <th>Nombre cours</th>
+                    <th>Nom Classe</th>
+                    
+                    <th>Mise à jour</th>
                     <th class="text-center">Action</th>
 
                   </tr>
                   </thead>
                   <tbody>
-                  {% for cote_student in cote_student %}
+                  {% for cls in all_class %}
                   <tr>
-                    <td>{{ cote_student.class_name}}</td>
-                    <td>{{ cote_student.course }}
+                    <td>{{ cls.class_num }}</td>
+                    <td>{{ cls.class_name }}</td>
+                    <td>{{ cls.updated_at }}
                     </td>
-                    <td>0</td>
+                    
 
                       <td class="project-actions text-center">
-                          <a class="btn btn-primary btn-sm" href="#">
+                          <a class="btn btn-primary btn-sm" href="{% url 'view_eleve' cls.id %}">
                               <i class="fas fa-folder">
                               </i>
-                              View
+                              View eleve
                           </a>
-                          <a class="btn btn-info btn-sm" href="{% url 'edit_class' school_class.id %}">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Archiver
-                          </a>
+                          
                       </td>
 
 
@@ -84,9 +77,10 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Nom Classe</th>
                     <th>Numero Classe</th>
-                    <th>Nombre cours</th>
+                    <th>Nom Classe</th>
+                    
+                    <th>Mise à jour</th>
                     <th class="text-center">Action</th>
 
                   </tr>

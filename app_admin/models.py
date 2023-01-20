@@ -32,11 +32,11 @@ class CustomUserManager(UserManager):
 class User(AbstractUser):
     USER_TYPE = ((1, "admin"), (2, "Staff"), (3, "Student"))
     GENDER = [("M", "Male"), ("F", "Female")]
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+    # id = models.UUIDField(
+    #     primary_key=True,
+    #     default=uuid.uuid4,
+    #     editable=False
+    # )
 
     username = None  # Removed username, using email instead
     email = models.EmailField(unique=True)
@@ -105,20 +105,16 @@ class SchoolClass(models.Model):
 
 
 class Admin(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+    # id = models.UUIDField(
+    #     primary_key=True,
+    #     default=uuid.uuid4,
+    #     editable=False
+    # )
     admin = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 class Student(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+   
     admin = models.OneToOneField(User, on_delete=models.CASCADE)
     student_num = models.IntegerField(null=True, blank=False)
     school_class = models.ForeignKey(SchoolClass, on_delete=models.DO_NOTHING,null=True, blank=False)
@@ -129,11 +125,11 @@ class Student(models.Model):
 
 class Staff(models.Model):
     ROLE = ((1, "Teacher"), (2, "Etude_Teacher"), (3, "Student"))
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+    # id = models.UUIDField(
+    #     primary_key=True,
+    #     default=uuid.uuid4,
+    #     editable=False
+    # )
     admin = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.BooleanField(default=1)
 

@@ -127,7 +127,7 @@ class StaffCourseView(View):
 #     return render(request, "school_staf/gestion_cote/cote.html", context)
 
 def detail_course(request, course_id):
-    course_id = int(course_id)
+    course_id = course_id
     context = {}
     staff_one = Staff.objects.get(admin=request.user)
     try:

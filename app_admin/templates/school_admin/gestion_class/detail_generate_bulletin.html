@@ -14,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Les Enseignants</h1>
+            <h1>Listes des éleves de la classe {{ student_cls }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Les Enseignants</li>
+              <li class="breadcrumb-item active">Liste des éléves</li>
             </ol>
           </div>
         </div>
@@ -34,9 +34,9 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Liste des Enseignants</h3>
+                <h3 class="card-title">Liste des éléves</h3>
                 <div class="clearfix">
-                {% comment %} <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Enseignant</button> {% endcomment %}
+
               </div>
               </div>
               <!-- /.card-header -->
@@ -49,42 +49,34 @@
                     <th>Post nom</th>
                     <th>Email</th>
                     <th>Genre</th>
-                  
-                    <th class="text-center" >Action</th>
+                    <th>Classe</th>
+                    <th class="project-actions text-center">Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  {% for staff in staff%}
+                  {% for stud in student %}
                   <tr>
-                      <td>
-                      <img alt="Image" width="50px" height="25px" class="table-avatar" src="{{ staff.admin.profile_pic }}">
+                    <td>
+
+                      <img alt="Image" width="50px" height="25px" class="table-avatar" src="{{ stud.admin.profile_pic }}">
                     </td>
-                    <td>{{ staff.admin.first_name }}</td>
-                    <td>{{ staff.admin.last_name }}
+                    <td>{{ stud.admin.first_name }}</td>
+                    <td>{{ stud.admin.last_name }}
                     </td>
-                    <td>{{ staff.admin.email }}</td>
-                    <td> {{ staff.admin.gender }}</td>
-                    
+                    <td>{{ stud.admin.email }}</td>
+                    <td> {{ stud.admin.gender }}</td>
+                    <td>{{ student_cls }}</td>
+
                       <td class="project-actions text-center">
-                          <a class="btn btn-primary btn-sm" href="#">
+                          <a class="btn btn-primary btn-sm" href="{% url 'stud_bulletin' stud.id %}">
                               <i class="fas fa-folder">
                               </i>
-                              View
+                              Bulletin
                           </a>
-                          <a class="btn btn-info btn-sm" href="{% url 'edit_staff' staff.id %}">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Archiver
-                          </a>
+                        
                       </td>
 
                   </tr>
-
                   {% endfor %}
                   </tbody>
                   <tfoot>
@@ -94,9 +86,8 @@
                     <th>Post nom</th>
                     <th>Email</th>
                     <th>Genre</th>
-                    
-                    <th class="text-center" >Action</th>
-
+                    <th>Classe</th>
+                    <th class="project-actions text-center">Action</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -133,13 +124,13 @@
                     <!-- your steps content here -->
 
                          <section class="content">
-                            <form method="post" name="course_staff[]"  enctype="multipart/form-data" multiple="true">
+                            <form method="post" enctype="multipart/form-data">
                       {% csrf_token %}
       <div class="row">
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Information Enseignant</h3>
+              <h3 class="card-title">Information Eléve</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -165,6 +156,10 @@
                   {{ form.gender }}
 
               </div>
+              <div class="form-group">
+                <label for="inputDescription">Addresse</label>
+                <textarea id="inputDescription" class="form-control" rows="4" name="address"></textarea>
+              </div>
 
             </div>
             <!-- /.card-body -->
@@ -174,7 +169,7 @@
         <div class="col-md-6">
           <div class="card card-secondary">
             <div class="card-header">
-              <h3 class="card-title">Autre Information</h3>
+              <h3 class="card-title">Information Classe </h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -183,11 +178,31 @@
               </div>
             </div>
             <div class="card-body">
-               <div class="form-group">
-                <label for="inputDescription">Addresse</label>
-                <textarea id="inputDescription" class="form-control" rows="4" name="address"></textarea>
-              </div>
               <div class="form-group">
+                <label f>Classe</label>
+                {{form.school_class}}
+              </div>
+
+
+            <!-- /.card-body -->
+          </div>
+            <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Autre information sur éléve</h3>
+
+              <div class="card-tools">
+
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label >Numero Eléve</label>
+                {{ form.student_num}}
+              </div>
+                 <div class="form-group">
                 <label >Photo</label>
                 {{ form.profile_pic }}
               </div>
@@ -195,22 +210,28 @@
                 <label >Mot de pass </label>
                 {{ form.password }}
                 </div>
-
+            </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
+          <!-- /.card -->
         </div>
+
       </div>
+
 
       </div>
                                <div class="row">
         <div class="col-12">
           <!-- /<a href="#" class="btn btn-secondary">Cancel</a> -->
-          <input type="submit" value="Ajouter enseignant" class="btn btn-success float-right">
+          <input type="submit" value="Créer nouveau Eleve" class="btn btn-success float-right">
         </div>
       </div>
         </form>
     </section>
+
+
+
 
 
               <!-- /.card-body -->

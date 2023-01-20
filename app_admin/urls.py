@@ -12,6 +12,10 @@ urlpatterns = [
    path("periode/edit/<str:periode_id>", edit_period,name="period_edit"),
     # generate bulletin
     path('generate_bulletin', generate_bulletin, name="generate_bulletin"),
+    
+    path("generate_bulletin/view_eleve/<str:stud_id>",  detail_cls_stud_generate_bulletin,name="view_eleve"),
+    path("generate_bulletin/print/<str:bulletin_id>",  generate_bulletin_print,name="stud_bulletin"),
+    
 
    # student
    path('student/',StudentView.as_view(), name="student"),

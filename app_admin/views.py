@@ -221,12 +221,12 @@ class StudentView(View):
                 student_num = form.cleaned_data.get('student_num')
                 passport = request.FILES.get('profile_pic')
                 fs = FileSystemStorage()
-                # filename = fs.save(passport.name, passport)
-                # passport_url = fs.url(filename)
+                filename = fs.save(passport.name, passport)
+                passport_url = fs.url(filename)
                 try:
                     user = User.objects.create_user(
                         email=email, password=password, user_type=3, first_name=first_name, last_name=last_name,
-                        profile_pic=passport)
+                        profile_pic=passport_url)
                     user.gender = gender
                     user.address = address
                     user.student.school_class = school_class
@@ -336,13 +336,51 @@ def generate_bulletin(request):
     # course class
     all_class = SchoolClass.objects.all()
 
-    all_student_by_class = all_class.student_set.all()
-
-    course_cl = all_student_by_class.course_set.all()
-
     # student course
-    context['course_cl'] = course_cl
+    context['all_class'] = all_class
     return render(request, "school_admin/gestion_class/generate_bulletin.html", context)
+
+def detail_cls_stud_generate_bulletin(request, stud_id):
+    context = {}
+    
+    bulletin_id = stud_id
+    try:
+        student_cls = SchoolClass.objects.get(id=bulletin_id)
+    except SchoolClass.DoesNotExist:
+        messages.error(request, "Key Not Exist")
+        return redirect('generate_bulletin')
+    all_stud_by_cls = student_cls.student_set.all()
+    print("Voir student", all_stud_by_cls)
+
+    
+    context = {
+        'student': all_stud_by_cls,
+        'student_cls': student_cls,
+        'page_title': 'Edit Student'
+    }
+    
+    return render(request, "school_admin/gestion_class/detail_generate_bulletin.html", context)
+
+def generate_bulletin_print(request, bulletin_id):
+    context = {}
+    
+    student = bulletin_id
+    try:
+        student = Student.objects.get(id=student)
+    except Student.DoesNotExist:
+        messages.error(request, "Key Not Exist")
+        return redirect('generate_bulletin')
+    all_stud_by_cote = student.cotation_set.all()
+    print("Voir cote", all_stud_by_cote)
+
+    
+    context = {
+        'stud_cote': all_stud_by_cote,
+        'student': student,
+        'page_title': 'Edit Student'
+    }
+    
+    return render(request, "school_admin/bulletin.html", context)
 
 class CotationStudentView(View):
     model = Cotation
@@ -467,12 +505,12 @@ class StaffView(View):
                 #course = form.cleaned_data.get('course')
                 passport = request.FILES.get('profile_pic')
                 fs = FileSystemStorage()
-                # filename = fs.save(passport.name, passport)
-                # passport_url = fs.url(filename)
+                filename = fs.save(passport.name, passport)
+                passport_url = fs.url(filename)
                 try:
                     user = User.objects.create_user(
                         email=email, password=password, user_type=2, first_name=first_name, last_name=last_name,
-                        profile_pic=passport)
+                        profile_pic=passport_url)
                     user.gender = gender
                     user.address = address
                     #user.staff.course = course
