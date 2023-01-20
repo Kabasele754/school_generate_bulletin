@@ -95,4 +95,15 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.email
+    
+    
 
+class SystemConfig(models.Model):
+    logo_name = models.CharField(max_length=100)
+    logo_image = models.ImageField(upload_to='logo/')
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.logo_name
+   

@@ -48,6 +48,9 @@ urlpatterns = [
    path('inbox/',InboxView.as_view(), name="inbox"),
    path('inbox/compose/',create_mail_view, name="compose"),
    path('bulletin/',BulletinView.as_view(), name="bulletin"),
+   
+   # system config
+    path("systemconfig",SystemConfigView.as_view(), name="logo"),
 
 
 ]

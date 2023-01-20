@@ -1195,3 +1195,49 @@ def create_mail_view(request, *args, **kwargs):
     # return render(request, 'manager_op/index.html', context )
     return render(request, 'school_admin/mailbox/compose.html', context)
 
+
+
+# system config
+
+# Add blog  function
+class SystemConfigView(View):
+    model = SystemConfig
+    form_class = SystemConfigForm
+    template_name = "school_admin/system_config/index.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        all_logoes = SystemConfig.objects.all()
+        context['form'] = self.form_class
+        context['all_logoes'] = all_logoes
+        return render(request, self.template_name, context)
+
+    # create a post for show one and to make a comment
+    def post(self, request, *args, **kwargs):
+        context = {}
+        if request.method == "POST":
+            form = SystemConfigForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                logo_name = form.cleaned_data['logo_name']
+                logo_image = form.cleaned_data['logo_image']
+               
+                try:
+                    logopost = form.save(commit=False)
+                    logopost.logo_name = logo_name
+                    logopost.logo_image = logo_image
+                   
+                    logopost.save()
+                    
+                    messages.success(request, "Successfully Added")
+                    return redirect(reverse('logo'))
+                except Exception as e:
+                    messages.error(request, f"ne peut etre ajouté : " + str(e))
+
+                #return render(request, "inscription/gestion_blog/add_blog.html", {'obj': obj, 'alert': alert})
+            else:
+                form = SystemConfigForm()
+                messages.error(request, "Could Not Add: ")
+                context['form'] = form
+        return render(request, self.template_name, context=context)
+
+

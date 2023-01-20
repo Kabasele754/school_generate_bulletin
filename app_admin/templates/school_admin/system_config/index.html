@@ -14,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gestion année</h1>
+            <h1>Logo</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Gestion année</li>
+              <li class="breadcrumb-item active">Logo</li>
             </ol>
           </div>
         </div>
@@ -34,9 +34,9 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Liste des années</h3>
+                <h3 class="card-title">Liste des logos</h3>
                 <div class="clearfix">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Classe</button>
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-plus"></i> Ajouter Logo</button>
               </div>
               </div>
               <!-- /.card-header -->
@@ -44,42 +44,55 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                      <th>Date du début de l'Année</th>
-                    <th>Date de la cloture de l'Année</th>
-
-                    <th class="text-center">Action</th>
-
+                    
+                        <th>Nom du logo</th>
+                        
+                        <th>Image</th>
+                        <th>Action</th>
+    
+                     
                   </tr>
                   </thead>
                   <tbody>
-                  {% for all_year in all_year %}
+                  {% for log in all_logoess %}
                   <tr>
-                    <td>{{ all_year.start_year|date:"D d M Y" }}</td>
-                    <td>{{ all_year.end_year|date:"D d M Y" }}
+                    <td>{{ log.logo_name }}</td>
+                    
+
+                    <td>
+
+                        <img alt="Image" width="50px" height="25px" class="table-avatar" src="{{ log.logo_image.url }}">
+
                     </td>
-
-
-                      <td class="project-actions text-center">
-
-                          <a class="btn btn-info btn-sm" href="{% url 'year_update' all_year.id %}">
+                       <td class="project-actions text-center">
+                          <a class="btn btn-primary btn-sm" href="#">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                          </a>
+                          <a class="btn btn-info btn-sm" href="{% url 'update' blog.id %}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                           </a>
-
+                          <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Archiver
+                          </a>
                       </td>
 
-
                   </tr>
-                  {% endfor %}
 
+
+                  {% endfor %}
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Date du début de l'Année</th>
-                    <th>Date de la cloture de l'Année</th>
-
-                    <th class="text-center">Action</th>
+                    <th>Nom du logo</th>
+                    
+                    <th>Image</th>
+                    <th>Action</th>
 
                   </tr>
                   </tfoot>
@@ -115,20 +128,41 @@
               <div class="card-body p-3">
 
                     <!-- your steps content here -->
-                     <form method="post">
-                      {% csrf_token %}
-                         <div class="form-group">
-                             <label>Année de debut</label>
-                         {{  form.start_year }}
-                         </div>
-                         <div class="form-group">
-                             <label>Année de cloture</label>
-                         {{  form.end_year }}
-                         </div>
-                         <div class="form-group">
-                         <input class="form-control btn btn-success float-right" type="submit" value="Enregistrer">
-                         </div>
-                    </form>
+                    <form role="form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="row">
+        {% for field in form  %}
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            {{field.errors}}
+               <br>
+                <div class="form-group">
+                {% if not labels_uppercase %}{{ field.label|safe }}{% else %}{{ field.label|safe|upper }}{% endif %}{% if field.field.required %}{% endif %}
+<!--                {{field.label_tag}}-->
+              <p></p>
+                {{field}}
+
+                </div>
+            </div>
+
+        {% endfor %}
+        </div>
+
+
+    <!-- /.card-body -->
+<br><br>
+    <div class="card-footer">
+        <div class="form-group">
+        <button type="submit" class=" form-control btn btn-success btn-block">
+            {% if button_text %}
+            {{button_text}}
+            {% else %}
+            Enregistre
+            {% endif %}
+
+        </button>
+        </div>
+        </div>
+</form>
 
 
 
@@ -155,5 +189,7 @@
     </section>
     <!-- /.content -->
   </div>
+
+
 
 {% endblock content %}

@@ -199,6 +199,7 @@ class ArticleForm(FormSettings):
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Content of the Blog'}),
         }
 
+
 class ContactForm(forms.ModelForm):
     # number = PhoneNumberField(region="CA")
     class Meta:
@@ -213,3 +214,13 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('name', 'email', 'content')
+
+
+class SystemConfigForm(FormSettings):
+    class Meta:
+        model = SystemConfig
+        fields = ['logo_name','logo_image']
+        widgets = {
+            'logo_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title of the Blog'}),
+            
+        }
