@@ -15,6 +15,19 @@ class HomeView(TemplateView):
         article_event = ArticleBlog.objects.filter(status="event")
         context['article_slider'] = article_slider
         context['all_evennt'] = article_event
+        context['logo'] = SystemConfig.objects.all().last()
+        return context
+    
+class SystemLogoView(TemplateView):
+    template_name = "public_school/partials/header.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article_slider = ArticleBlog.objects.filter(status="slider")
+        article_event = ArticleBlog.objects.filter(status="event")
+        context['article_slider'] = article_slider
+        context['all_evennt'] = article_event
+        context['logo'] = SystemConfig.objects.all().last()
         return context
 
 class EventView(TemplateView):

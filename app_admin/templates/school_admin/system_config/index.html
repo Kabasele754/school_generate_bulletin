@@ -54,7 +54,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  {% for log in all_logoess %}
+                  {% for log in logo %}
                   <tr>
                     <td>{{ log.logo_name }}</td>
                     
@@ -70,7 +70,7 @@
                               </i>
                               View
                           </a>
-                          <a class="btn btn-info btn-sm" href="{% url 'update' blog.id %}">
+                          <a class="btn btn-info btn-sm" href="{% url 'update_logo' log.id %}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit

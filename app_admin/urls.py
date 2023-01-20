@@ -51,6 +51,8 @@ urlpatterns = [
    
    # system config
     path("systemconfig",SystemConfigView.as_view(), name="logo"),
+    path('systemconfig/edit/<str:logo_id>', update_logo, name="update_logo"),
+    
 
 
 ]

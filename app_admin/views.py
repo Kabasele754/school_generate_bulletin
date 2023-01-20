@@ -1101,27 +1101,71 @@ class AddBlogView(View):
 
 # function update blog article
 def update_article(request, article_id):
+    
     article_id = article_id
     context = {}
-    try:
-        article_one = ArticleBlog.objects.get(id = article_id)
-    except ArticleBlog.DoesNotExist:
-        return redirect('add_blog')
+    # try:
+    article_one = ArticleBlog.objects.get(id = article_id)
+    # except ArticleBlog.DoesNotExist:
+    #     return redirect('add_blog')
 
-    article_form = ArticleForm(request.POST or None, instance = article_one)
+    form = ArticleForm(request.POST,files=request.FILES, instance = article_one)
     context['article_one'] = article_one
-    context['form'] = article_form
-    if article_form.is_valid():
-        try:
-            article_form.save()
-            messages.success(request, "Successfully Updated")
-            #return redirect('add_blog')
+    context['form'] = form
 
-        except:
-            messages.error(request, "Could Not Update")
-    else:
-        messages.error(request, "Could Not Update")
-    return render(request, 'school_admin/gestion_event/edit_event.html', context)
+   
+    if request.method == 'POST':
+        try:
+            if form.is_valid():
+                title = form.cleaned_data.get('title')
+                description = form.cleaned_data.get('description')
+                status = form.cleaned_data.get('status')
+                category = form.cleaned_data.get('category')
+                
+                passport = request.FILES.get('image') or None
+                article = article_one
+                
+                if passport != None:
+                    fs = FileSystemStorage()
+                    filename = fs.save(passport.name, passport)
+                    passport_url = fs.url(filename)
+                    article.image = passport_url
+                article.title = title
+                article.description = description
+                article.status = status
+                article.category= category
+                article.save()
+                messages.success(request, "Event Updated!")
+                return redirect(reverse('add_blog'))
+            else:
+                messages.error(request, "Invalid Data Provided")
+        except Exception as e:
+            messages.error(
+                request, "Error Occured While Updating Profile " + str(e))
+    return render(request, "school_admin/gestion_event/edit_event.html", context)
+
+# def update_article(request, article_id):
+#     article_id = article_id
+#     context = {}
+#     try:
+#         article_one = ArticleBlog.objects.get(id = article_id)
+#     except ArticleBlog.DoesNotExist:
+#         return redirect('add_blog')
+
+#     article_form = ArticleForm(request.POST or None,files=request.FILES, instance = article_one)
+#     context['article_one'] = article_one
+#     context['form'] = article_form
+#     if article_form.is_valid():
+#         try:
+#             article_form.save()
+#             messages.success(request, "Successfully Updated")
+#             return redirect('add_blog')
+
+#         except:
+#             messages.error(request, "Could Not Update")
+#     else:
+#         messages.error(request, "Could Not Update")
+#     return render(request, 'school_admin/gestion_event/edit_event.html', context)
 
 # function delete blog
 def delete_blog(request, blog_id):
@@ -1209,7 +1253,7 @@ class SystemConfigView(View):
         context = {}
         all_logoes = SystemConfig.objects.all()
         context['form'] = self.form_class
-        context['all_logoes'] = all_logoes
+        context['logo'] = all_logoes
         return render(request, self.template_name, context)
 
     # create a post for show one and to make a comment
@@ -1241,3 +1285,25 @@ class SystemConfigView(View):
         return render(request, self.template_name, context=context)
 
 
+def update_logo(request, logo_id):
+    logo_id = logo_id
+    context = {}
+    try:
+        logo_one = SystemConfig.objects.get(id = logo_id)
+    except SystemConfig.DoesNotExist:
+        return redirect('add_blog')
+
+    system_form = SystemConfigForm(request.POST,files=request.FILES, instance = logo_one)
+    context['logo_one'] = logo_one
+    context['form'] = system_form
+    if system_form.is_valid():
+        try:
+            system_form.save()
+            messages.success(request, "Successfully Updated")
+            return redirect(reverse('logo'))
+
+        except:
+            messages.error(request, "Could Not Update")
+    else:
+        messages.error(request, "Could Not Update")
+    return render(request, 'school_admin/system_config/edit_logo.html', context)
