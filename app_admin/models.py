@@ -69,7 +69,7 @@ class SchoolYear(models.Model):
 
 
 class Period(models.Model):
-    PERIOD = [("1erep", "1ere p"), ("2emep", "2ème P"),("examen1", "Examen 1"),  ("3emep", "3ème P"), ("'4emep", "4ème P"),("examen2", "Examen 2")]
+    PERIOD = [("1erep", "1ere p"), ("2emep", "2ème P"),("examen1", "Examen 1"),  ("3emep", "3ème P"), ("4emep", "4ème P"),("examen2", "Examen 2")]
     # id = models.UUIDField(
     #     primary_key=True,
     #     default=uuid.uuid4,
@@ -144,13 +144,14 @@ class Course(models.Model):
         editable=False
     )
     name = models.CharField(max_length=120)
+    max = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     #staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING, null=True, blank=False)
     #school_class = models.ForeignKey(SchoolClass, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return f"({self.name})"
+        return f"{self.name} {self.max}"
 
 
 

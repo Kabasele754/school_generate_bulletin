@@ -45,6 +45,7 @@
                   <thead>
                   <tr>
                     <th class="text-center">Nom Cours</th>
+                    <th class="text-center">Ponderation Cours</th>
 
                     <th class="text-center">Action</th>
                   </tr>
@@ -54,6 +55,7 @@
                   <tr>
 
                     <td>{{cours.name }}</td>
+                    <td>{{cours.max }}</td>
 
                      <td class="project-actions text-center">
                           <a class="btn btn-info btn-sm" href="{% url 'edit_course' cours.id %}">
@@ -69,6 +71,7 @@
                   <tfoot>
                   <tr>
                     <th class="text-center">Nom Cours</th>
+                    <th class="text-center">Ponderation Cours</th>
 
                     <th class="text-center">Action</th>
 
@@ -112,6 +115,10 @@
                          <label>Nom du cours</label>
                               {{  form.name }}
                           </div>
+                          <div class="form-group">
+                            <label>Ponderation</label>
+                                 {{  form.max }}
+                             </div>
                           <div class="form-group">
                          <input class="form-control btn btn-success float-right" type="submit" value="Enregistrer">
                           </div>

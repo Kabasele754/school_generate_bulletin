@@ -29,6 +29,9 @@ import datetime
 
 class DashbordardView(TemplateView):
     template_name = "school_admin/dashboard.html"
+    
+    
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -386,13 +389,165 @@ def generate_bulletin_print(request, bulletin_id):
     
     print("Voir cote", all_stud_by_cote_1)
     
+    # debut ajout 20-01-2023
+    # les cote de la premiere periode
+    cotations_etud_10=Cotation.get_cour_max10(student)
+    cotations_etud_20=Cotation.get_cour_max20(student)
+    cotations_etud_40=Cotation.get_cour_max40(student)
+    cotations_etud_50=Cotation.get_cour_max50(student)
+    cotations_etud_100=Cotation.get_cour_max100(student)
+    # 2 eme periode
+    cotations_etud_10_p2=Cotation.get_cour_max10_p2(student)
+    cotations_etud_20_p2=Cotation.get_cour_max20_p2(student)
+    cotations_etud_40_p2=Cotation.get_cour_max40_p2(student)
+    cotations_etud_50_p2=Cotation.get_cour_max50_p2(student)
+    cotations_etud_100_p2=Cotation.get_cour_max100_p2(student)
+    # 3 eme examan et total
+    cotations_etud_10_p3=Cotation.get_cour_max10_p3(student)
+    cotations_etud_20_p3=Cotation.get_cour_max20_p3(student)
+    cotations_etud_40_p3=Cotation.get_cour_max40_p3(student)
+    cotations_etud_50_p3=Cotation.get_cour_max50_p3(student)
+    cotations_etud_100_p3=Cotation.get_cour_max100_p3(student)
+    # partie total 1
+    cotation_total_10_1 = Cotation.get_cour_max10_total_1(student)
+    cotation_total_20_1 = Cotation.get_cour_max20_total_1(student)
+    cotation_total_40_1 = Cotation.get_cour_max40_total_1(student)
+    # cotation_total_50_1 = Cotation.get_cour_max50_total_1(student)
+    # cotation_total_100_1 = Cotation.get_cour_max100_total_1(student)
     
+    # 4 em periode 2 semestre
+    cotations_etud_10_p4=Cotation.get_cour_max10_p4(student)
+    cotations_etud_20_p4=Cotation.get_cour_max20_p4(student) 
+    cotations_etud_40_p4 = Cotation.get_cour_max20_p4(student)
+    cotations_etud_50_p4=Cotation.get_cour_max50_p4(student) 
+    cotations_etud_100_p4 = Cotation.get_cour_max100_p4(student)
+    
+    # 5 em periode 2 semestre
+    cotations_etud_10_p5=Cotation.get_cour_max10_p5(student)
+    cotations_etud_20_p5=Cotation.get_cour_max20_p5(student) 
+    cotations_etud_40_p5 = Cotation.get_cour_max40_p5(student)
+    cotations_etud_50_p5=Cotation.get_cour_max50_p5(student) 
+    cotations_etud_100_p5 = Cotation.get_cour_max100_p5(student)
+    
+    # 6 em periode 2 semestre
+    cotations_etud_10_p6=Cotation.get_cour_max10_p6(student)
+    cotations_etud_20_p6=Cotation.get_cour_max20_p6(student) 
+    cotations_etud_40_p6 = Cotation.get_cour_max40_p6(student)
+    cotations_etud_50_p6=Cotation.get_cour_max50_p6(student) 
+    cotations_etud_100_p6 = Cotation.get_cour_max100_p6(student)
+    # partie total 2
+    cotation_total_10_2 = Cotation.get_cour_max10_total_2(student)
+    cotation_total_20_2 = Cotation.get_cour_max20_total_2(student)
+    cotation_total_40_2 = Cotation.get_cour_max40_total_2(student)
+    
+    
+    print("voir dico cte_max10 ", cotations_etud_10)
+    print("voir dico cte_max20 ", cotations_etud_20)
+    print("voir dico cte_max40 ", cotations_etud_40)
+    dico_cotations_max10={}
+    dico_cotations_max10["max10"]=[cotations_etud_10,cotations_etud_10_p2]
+    for dic, values in dico_cotations_max10.items():
+        print (values)
+    
+    # fin ajout 
 
     
     context = {
         'stud_cote': all_stud_by_cote_1,
         'student': student,
-        'page_title': 'Edit Student'
+        'page_title': 'Edit Student',
+        #============================================
+        # Cotation partie 10
+        #============================================
+        # Debut cotation 10 1 semetre
+        'dico_max10':cotations_etud_10,
+        'dico_max10_p2':cotations_etud_10_p2,
+        'dico_max10_p3':cotations_etud_10_p3,
+        'cotation_total_10_1':cotation_total_10_1,
+        # fin cotation 10 1 semestre
+        
+        # Debut cotation 10 2 semetre
+        'dico_max10_p4':cotations_etud_10_p4,
+        'dico_max10_p5':cotations_etud_10_p5,
+        'dico_max10_p6':cotations_etud_10_p6,
+        'cotation_total_10_2':cotation_total_10_2,
+        # Fin cotation 10 semestre
+        #========================================
+        # Fin cotation partie 10
+        #========================================
+        
+        
+        #============================================
+        # Cotation partie 20
+        #============================================
+        # Debut cotation 20 1 semetre
+        'dico_max20':cotations_etud_20,
+        'dico_max20_p2':cotations_etud_20_p2,
+        'dico_max20_p3':cotations_etud_20_p3,
+        'cotation_total_20_1':cotation_total_20_1,
+        # cotation 20 2 semetre
+        'dico_max20_p4':cotations_etud_20_p4,
+        'dico_max20_p5':cotations_etud_20_p5,
+        'dico_max20_p6':cotations_etud_20_p6,
+        'cotation_total_20_2':cotation_total_20_2,
+        # Fin cotation 20 semestre
+        #========================================
+        # Fin cotation partie 20
+        #========================================
+        
+        #============================================
+        # Cotation partie 40
+        #============================================
+        # Debut cotation 40 1 semetre
+        'dico_max40':cotations_etud_40,
+        'dico_max40_p2':cotations_etud_40_p2,
+        'dico_max40_p3':cotations_etud_40_p3,
+        'cotation_total_40_1':cotation_total_40_1,
+        # cotation 40 2 semetre
+        'dico_max40_p4':cotations_etud_40_p4,
+        'dico_max40_p5':cotations_etud_40_p5,
+        'dico_max40_p6':cotations_etud_40_p6,
+        'cotation_total_40_2':cotation_total_40_2,
+        # Fin cotation 40 semestre
+        #========================================
+        # Fin cotation partie 40
+        #========================================
+        
+         #============================================
+        # Cotation partie 40
+        #============================================
+        # Debut cotation 40 1 semetre
+        'dico_max50':cotations_etud_50,
+        'dico_max50_p2':cotations_etud_50_p2,
+        'dico_max50_p3':cotations_etud_50_p3,
+        #'cotation_total_50_1':cotation_total_40_1,
+        # cotation 40 2 semetre
+        'dico_max50_p4':cotations_etud_50_p4,
+        'dico_max50_p5':cotations_etud_50_p5,
+        'dico_max50_p6':cotations_etud_50_p6,
+        #'cotation_total_40_2':cotation_total_40_2,
+        # Fin cotation 40 semestre
+        #========================================
+        # Fin cotation partie 40
+        #========================================
+        
+         #============================================
+        # Cotation partie 40
+        #============================================
+        # Debut cotation 40 1 semetre
+        'dico_max100':cotations_etud_100,
+        'dico_max100_p2':cotations_etud_100_p2,
+        'dico_max100_p3':cotations_etud_100_p3,
+        #'cotation_total_100_1':cotation_total_100_1,
+        # cotation 40 2 semetre
+        'dico_max100_p4':cotations_etud_100_p4,
+        'dico_max100_p5':cotations_etud_100_p5,
+        'dico_max100_p6':cotations_etud_100_p6,
+        #'cotation_total_100_2':cotation_total_100_2,
+        # Fin cotation 40 semestre
+        #========================================
+        # Fin cotation partie 40
+        #========================================
     }
     
     return render(request, "school_admin/bulletin.html", context)
@@ -769,12 +924,12 @@ class CourseView(View):
             if book_form.is_valid():
 
                 name = book_form.cleaned_data.get('name')
-                #school_class = book_form.cleaned_data.get('school_class')
+                max = book_form.cleaned_data.get('max')
                 #staff = book_form.cleaned_data.get('staff')
 
                 # try:
                 course = Course.objects.create(
-                    name=name,
+                    name=name,max=max
                 )
                 # school_class = school_class,
                 # staff = staff

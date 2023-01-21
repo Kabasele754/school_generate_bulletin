@@ -58,7 +58,366 @@ class Cotation(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'self.note'
+        return f'({self.note})==> {self.course.name} {self.course.max}'
+    
+    
+    # ajout 20-01-2023
+    def get_cour_max10(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=1)
+        for ob in objet_cotation:
+            if(ob.course.max==10):
+                dico[ob]=ob.period
+        return dico
+        
+    def get_cour_max20(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=1)
+        for ob in objet_cotation:
+            if(ob.course.max==20):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max40(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=1)
+        for ob in objet_cotation:
+            if(ob.course.max==40):
+                dico[ob]=ob.period
+        return dico
+    def get_cour_max50(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=1)
+        for ob in objet_cotation:
+            if(ob.course.max==50):
+                dico[ob]=ob.period
+        return dico
+    def get_cour_max100(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=1)
+        for ob in objet_cotation:
+            if(ob.course.max==100):
+                dico[ob]=ob.period
+        return dico
+    
+    # cotation 2 eme periode
+    
+    def get_cour_max10_p2(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=2)
+        for ob in objet_cotation:
+            if(ob.course.max==10):
+                dico[ob]=ob.period
+        return dico
+        
+    def get_cour_max20_p2(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=2)
+        for ob in objet_cotation:
+            if(ob.course.max==20):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max40_p2(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=2)
+        for ob in objet_cotation:
+            if(ob.course.max==40):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max50_p2(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=2)
+        for ob in objet_cotation:
+            if(ob.course.max==50):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max100_p2(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=2)
+        for ob in objet_cotation:
+            if(ob.course.max==100):
+                dico[ob]=ob.period
+        return dico
+    
+    # cotation 3 eme periode examen 
+    
+    def get_cour_max10_p3(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=3)
+        for ob in objet_cotation:
+            if(ob.course.max==10):
+                dico[ob]=ob.period
+        return dico
+        
+    def get_cour_max20_p3(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=3)
+        for ob in objet_cotation:
+            if(ob.course.max==20):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max40_p3(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=3)
+        for ob in objet_cotation:
+            if(ob.course.max==40):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max50_p3(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=3)
+        for ob in objet_cotation:
+            if(ob.course.max==50):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max100_p3(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=3)
+        for ob in objet_cotation:
+            if(ob.course.max==100):
+                dico[ob]=ob.period
+        return dico
+    
+    # cotation total periode 1
+     
+    def get_cour_max10_total_1(id_etudiant):
+        list_total = []
+        
+        for co_object in Cotation.get_cour_max10(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max10_p2(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max10_p3(id_etudiant):
+            list_total.append(co_object.note)
+        return sum(list_total)
+    
+    def get_cour_max20_total_1(id_etudiant):
+        list_total = []
+        
+        for co_object in Cotation.get_cour_max20(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max20_p2(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max20_p3(id_etudiant):
+            list_total.append(co_object.note)
+        return sum(list_total)
+        
+    
+    def get_cour_max40_total_1(id_etudiant):
+        dico={}
+        list_total = []
+        
+        for co_object in Cotation.get_cour_max40(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max40_p2(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max40_p3(id_etudiant):
+            list_total.append(co_object.note)
+        
+        return sum(list_total)
+    
+    # cotation 4 eme periode deuxieme semestre
+    
+    def get_cour_max10_p4(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=4)
+        for ob in objet_cotation:
+            if(ob.course.max==10):
+                dico[ob]=ob.period
+        return dico
+        
+    def get_cour_max20_p4(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=4)
+        for ob in objet_cotation:
+            if(ob.course.max==20):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max40_p4(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=4)
+        for ob in objet_cotation:
+            if(ob.course.max==40):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max50_p4(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=4)
+        for ob in objet_cotation:
+            if(ob.course.max==50):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max100_p4(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=4)
+        for ob in objet_cotation:
+            if(ob.course.max==100):
+                dico[ob]=ob.period
+        return dico
+    
+    # cotation 5 eme periode deuxieme semestre
+    
+    def get_cour_max10_p5(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=5)
+        for ob in objet_cotation:
+            if(ob.course.max==10):
+                dico[ob]=ob.period
+        return dico
+        
+    def get_cour_max20_p5(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=5)
+        for ob in objet_cotation:
+            if(ob.course.max==20):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max40_p5(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=5)
+        for ob in objet_cotation:
+            if(ob.course.max==40):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max50_p5(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=5)
+        for ob in objet_cotation:
+            if(ob.course.max==50):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max100_p5(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=5)
+        for ob in objet_cotation:
+            if(ob.course.max==100):
+                dico[ob]=ob.period
+        return dico
+    
+    # cotation 6 eme periode deuxieme semestre
+    
+    def get_cour_max10_p6(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=6)
+        for ob in objet_cotation:
+            if(ob.course.max==10):
+                dico[ob]=ob.period
+        return dico
+        
+    def get_cour_max20_p6(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=6)
+        for ob in objet_cotation:
+            if(ob.course.max==20):
+                dico[ob]=ob.period
+        return dico
+    
+    def get_cour_max40_p6(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=6)
+        for ob in objet_cotation:
+            if(ob.course.max==40):
+                dico[ob]=ob.period
+        return dico
+    def get_cour_max50_p6(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=6)
+        for ob in objet_cotation:
+            if(ob.course.max==50):
+                dico[ob]=ob.period
+        return dico
+    def get_cour_max100_p6(id_etudiant):
+        dico={}
+        
+        objet_cotation=Cotation.objects.filter(student=id_etudiant,period=6)
+        for ob in objet_cotation:
+            if(ob.course.max==100):
+                dico[ob]=ob.period
+        return dico
+    # partie total 2 semetre
+    
+    def get_cour_max10_total_2(id_etudiant):
+        dico={}
+        list_total = []
+        
+        for co_object in Cotation.get_cour_max10_p4(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max10_p5(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max10_p6(id_etudiant):
+            list_total.append(co_object.note)
+        
+        return sum(list_total)
+    
+    def get_cour_max20_total_2(id_etudiant):
+        dico={}
+        list_total = []
+        
+        for co_object in Cotation.get_cour_max20_p4(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max20_p5(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max20_p6(id_etudiant):
+            list_total.append(co_object.note)
+        
+        return sum(list_total)
+    
+    def get_cour_max40_total_2(id_etudiant):
+        dico={}
+        list_total = []
+        
+        for co_object in Cotation.get_cour_max40_p4(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max40_p5(id_etudiant):
+            list_total.append(co_object.note)
+        for co_object in Cotation.get_cour_max40_p6(id_etudiant):
+            list_total.append(co_object.note)
+        
+        return sum(list_total)
+    
+    
+    # fin ajout 
 
 
 class Comportement(models.Model):
