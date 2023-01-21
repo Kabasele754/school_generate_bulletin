@@ -10,11 +10,23 @@
 
 				<!-- Hero Slide -->
 				{% for slider in article_slider %}
-				<div class="hero_slide">
+				{% comment %} <div class="hero_slide">
 					<div class="hero_slide_background" style="background-image:url({{ slider.image.url }})"></div>
 					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
 						<div class="hero_slide_content text-center">
 							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Titre <span>{{slider.title}}</span> Important!</h1>
+						</div>
+					</div>
+				</div> {% endcomment %}
+
+				<!-- Hero Slide -->
+				<div class="hero_slide">
+					<div class="hero_slide_background" >
+						<img src="{{ slider.image.url }}" >
+					</div>
+					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
+						<div class="hero_slide_content text-center">
+							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1>
 						</div>
 					</div>
 				</div>
@@ -40,7 +52,7 @@
 							<img src="{% static 'public_style/images/earth-globe.svg'%}" class="svg" alt="">
 							<div class="hero_box_content">
 								<h2 class="hero_box_title">Nos cours</h2>
-								<a href="courses.html" class="hero_box_link">Voir plus</a>
+								<a href="#" class="hero_box_link">Voir plus</a>
 							</div>
 						</div>
 					</div>
@@ -50,17 +62,17 @@
 							<img src="{% static 'public_style/images/books.svg'%}" class="svg" alt="">
 							<div class="hero_box_content">
 								<h2 class="hero_box_title">Notre bibliothque</h2>
-								<a href="courses.html" class="hero_box_link">Voir plus</a>
+								<a href="#" class="hero_box_link">Voir plus</a>
 							</div>
 						</div>
 					</div>
 
 					<div class="col-lg-4 hero_box_col">
 						<div class="hero_box d-flex flex-row align-items-center justify-content-start">
-							<img src="images/professor.svg" class="svg" alt="">
+							<img src="{% static 'public_style/images/professor.svg'%}" class="svg" alt="">
 							<div class="hero_box_content">
 								<h2 class="hero_box_title">Nos Enseignant</h2>
-								<a href="teachers.html" class="hero_box_link">Voir plus</a>
+								<a href="#" class="hero_box_link">Voir plus</a>
 							</div>
 						</div>
 					</div>
